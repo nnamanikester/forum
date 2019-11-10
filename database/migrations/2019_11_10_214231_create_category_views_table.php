@@ -15,6 +15,10 @@ class CreateCategoryViewsTable extends Migration
     {
         Schema::create('category_views', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('category_id')->unsigned();
+            $table->longtext('ip_address');
+            $table->date('date');
+            $table->string('count');
             $table->timestamps();
         });
     }

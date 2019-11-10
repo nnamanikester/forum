@@ -15,6 +15,10 @@ class CreateThreadViewsTable extends Migration
     {
         Schema::create('thread_views', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('thread_id')->unsigned();
+            $table->longText('ip_address');
+            $table->date('date');
+            $table->string('count');
             $table->timestamps();
         });
     }

@@ -15,6 +15,9 @@ class CreateThreadSharesTable extends Migration
     {
         Schema::create('thread_shares', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('thread_id')->unsigned();
+            $table->text('ip_address');
+            $table->string('count');
             $table->timestamps();
         });
     }

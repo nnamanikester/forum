@@ -15,6 +15,8 @@ class CreateThreadFavouritesTable extends Migration
     {
         Schema::create('thread_favourites', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('thread_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

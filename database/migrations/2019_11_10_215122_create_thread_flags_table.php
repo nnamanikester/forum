@@ -15,6 +15,8 @@ class CreateThreadFlagsTable extends Migration
     {
         Schema::create('thread_flags', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('thread_reply_id')->unsigned();
             $table->timestamps();
         });
     }

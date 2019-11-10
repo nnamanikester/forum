@@ -15,6 +15,10 @@ class CreateSiteViewsTable extends Migration
     {
         Schema::create('site_views', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->longtext('ip_address')->unique();
+            $table->string('url')->unique();
+            $table->string('count')->unique();
+            $table->date('date')->unique();
             $table->timestamps();
         });
     }

@@ -15,6 +15,11 @@ class CreateThreadReplyRepliesTable extends Migration
     {
         Schema::create('thread_reply_replies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('thread_reply_id')->unsigned();
+            $table->text('body');
+            $table->integer('updated_by')->unsigned();
+            $table->integer('created_by')->unsigned();
             $table->timestamps();
         });
     }

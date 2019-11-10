@@ -15,6 +15,8 @@ class CreateThreadLikesTable extends Migration
     {
         Schema::create('thread_likes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('thread_id')->unsigned();
             $table->timestamps();
         });
     }
