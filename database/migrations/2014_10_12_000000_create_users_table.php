@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('role_id')->unsigned();
+            $table->integer('role_id')->default(3)->unsigned();
             $table->integer('photo_id')->unsigned();
             $table->integer('level_id')->unsigned();
             $table->string('name');
@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('country');
             $table->string('website');
             $table->text('bio');
-            $table->integer('status')->unsigned();
+            $table->integer('status')->default(1)->unsigned();
             $table->rememberToken();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();

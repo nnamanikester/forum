@@ -3,33 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e639443c-b0a0-471b-aeb9-3c69ae1a7cf8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214038_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214038_create_categories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214201_create_category_favourites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214201_create_category_favourites_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214215_create_category_subscriptions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214215_create_category_subscriptions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214231_create_category_views_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214231_create_category_views_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214303_create_followers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214303_create_followers_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214337_create_levels_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214337_create_levels_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214411_create_messages_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214411_create_messages_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214432_create_notifications_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214432_create_notifications_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214443_create_photos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214443_create_photos_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214453_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214453_create_roles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214508_create_site_views_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214508_create_site_views_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214517_create_tags_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214517_create_tags_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214530_create_threads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214530_create_threads_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214544_create_thread_dislikes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214544_create_thread_dislikes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214556_create_thread_favourites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214556_create_thread_favourites_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214613_create_thread_likes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214613_create_thread_likes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214626_create_thread_replies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214626_create_thread_replies_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214643_create_thread_reply_dislikes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214643_create_thread_reply_dislikes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214652_create_thread_reply_likes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214652_create_thread_reply_likes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214713_create_thread_reply_favourites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214713_create_thread_reply_favourites_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214727_create_thread_reply_replies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214727_create_thread_reply_replies_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214742_create_thread_subscriptions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214742_create_thread_subscriptions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_214756_create_thread_views_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_214756_create_thread_views_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_215049_create_thread_shares_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_215049_create_thread_shares_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_215101_create_thread_reply_shares_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_215101_create_thread_reply_shares_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_215114_create_thread_reply_flags_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_215114_create_thread_reply_flags_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_10_215122_create_thread_flags_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_10_215122_create_thread_flags_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,74 +31,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_214756_create_thread_views_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_214508_create_site_views_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_214231_create_category_views_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_215049_create_thread_shares_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_215101_create_thread_reply_shares_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_215114_create_thread_reply_flags_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="16" column="40" lean-forward="true" selection-start-line="16" selection-start-column="40" selection-end-line="18" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_215122_create_thread_flags_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_224223_create_tag_thread_table.php">
+        <entry file="file://$PROJECT_DIR$/app/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="17" column="50" lean-forward="true" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
+            <state relative-caret-position="-3761">
+              <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+              <folding>
+                <element signature="e#23#69#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -151,7 +75,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/sass/app.scss" />
         <option value="$PROJECT_DIR$/public/js/charts/datatables-demo.js" />
         <option value="$PROJECT_DIR$/resources/js/sb-admin.min.js" />
         <option value="$PROJECT_DIR$/webpack.mix.js" />
@@ -173,7 +96,6 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_11_08_235923_create_levels_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_09_000032_create_thread_subscriptions_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_09_000105_create_photos_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_10_214038_create_categories_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_10_214201_create_category_favourites_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_10_214215_create_category_subscriptions_table.php" />
@@ -202,6 +124,8 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_11_10_215114_create_thread_reply_flags_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_10_215122_create_thread_flags_table.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_11_10_224223_create_tag_thread_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" />
+        <option value="$PROJECT_DIR$/app/User.php" />
       </list>
     </option>
   </component>
@@ -317,6 +241,11 @@
             <path>
               <item name="forum" type="b2602c69:ProjectViewProjectNode" />
               <item name="forum" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="forum" type="b2602c69:ProjectViewProjectNode" />
+              <item name="forum" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -383,18 +312,17 @@
       <workItem from="1573082694835" duration="2930000" />
       <workItem from="1573137934735" duration="72948000" />
       <workItem from="1573417381491" duration="3693000" />
-      <workItem from="1573421303537" duration="3838000" />
+      <workItem from="1573421303537" duration="6251000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83409000" />
+    <option name="totallyTimeSpent" value="85822000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="22" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3343419" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3343419" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -406,7 +334,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32850242" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32850242" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32850242" />
@@ -420,7 +348,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/categories.blade.php" />
     <entry file="file://$PROJECT_DIR$/resources/views/admin/threads.blade.php" />
     <entry file="file://$PROJECT_DIR$/resources/views/admin/threads/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor" />
@@ -497,13 +424,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_214443_create_photos_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -515,13 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_214038_create_categories_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="21" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -697,6 +610,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="17" column="50" lean-forward="true" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_10_214038_create_categories_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3761">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#23#69#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
