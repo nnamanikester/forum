@@ -1,0 +1,54 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+//FRONT END WITHOUT LOGIN ROUTES STARTS
+Route::get('/', 'FrontEndController@home')->name('fe.home');
+Route::get('/categories', 'FrontEndController@categories')->name('fe.categories');
+Route::get('/login', 'FrontEndController@login')->name('fe.login');
+Route::get('/register', 'FrontEndController@register')->name('fe.register');
+Route::get('/page/{name}', 'FrontEndController@pages')->name('fe.page');
+Route::get('/category', 'FrontEndController@category')->name('fe.category');
+Route::get('/topic', 'FrontEndController@topic')->name('fe.topic');
+Route::get('/trending', 'FrontEndController@trending')->name('fe.trending');
+
+
+//FRONT END WITHOUT LOGIN ROUTES ENDS
+
+
+//ADMIN ROUTE STARTS
+
+
+Route::get('/admin/dashboard/', 'AdminDashboardController@dashboard')->name('admin.dashboard');
+Route::get('/admin/threads/', 'AdminDashboardController@threads')->name('admin.threads');
+Route::get('/admin/categories/', 'AdminDashboardController@categories')->name('admin.categories');
+
+
+//ADMIN ROUTE ENDS
+
+
+//USER DASHBOARD ROUTES STARTS
+
+Route::get('/dashboard/', 'UserDashboardController@dashboard')->name('user.dashboard');
+Route::get('/dashboard/messages', 'UserDashboardController@messages')->name('user.messages');
+Route::get('/dashboard/compose', 'UserDashboardController@compose')->name('user.compose');
+Route::get('/dashboard/create-topic', 'UserDashboardController@create_topic')->name('user.create_topic');
+
+
+//USER DASHBOARD ROUTES ENDS
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
