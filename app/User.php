@@ -80,6 +80,12 @@ class User extends Authenticatable
 
     }
 
+    public function following() {
+
+        return $this->hasMany('App\Follower');
+
+    }
+
     public function favourite_categories() {
 
         return $this->hasMany('App\CategoryFavourite');
