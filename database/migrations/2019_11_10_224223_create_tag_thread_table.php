@@ -18,6 +18,13 @@ class CreateTagThreadTable extends Migration
             $table->integer('tag_id')->unsigned();
             $table->integer('thread_id')->unsigned();
             $table->timestamps();
+
+
+
+            $table->foreign('thread_id')->references('id')->on('threads')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+
+
         });
     }
 

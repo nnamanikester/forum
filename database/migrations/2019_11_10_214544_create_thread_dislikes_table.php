@@ -18,6 +18,12 @@ class CreateThreadDislikesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('thread_id')->unsigned();
             $table->timestamps();
+
+
+            $table->foreign('thread_id')->references('id')->on('threads')->onDelete('cascade');
+
+
+
         });
     }
 

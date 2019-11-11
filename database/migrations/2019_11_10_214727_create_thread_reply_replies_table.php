@@ -21,6 +21,13 @@ class CreateThreadReplyRepliesTable extends Migration
             $table->integer('updated_by')->unsigned();
             $table->integer('created_by')->unsigned();
             $table->timestamps();
+
+
+
+
+            $table->foreign('thread_reply_id')->references('id')->on('thread_replies')->onDelete('cascade');
+
+
         });
     }
 

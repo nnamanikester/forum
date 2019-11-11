@@ -24,6 +24,13 @@ class CreateThreadsTable extends Migration
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();
+
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('categories')->onDelete('cascade');
+
+
+
         });
     }
 

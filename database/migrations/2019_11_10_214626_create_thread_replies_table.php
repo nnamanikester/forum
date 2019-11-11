@@ -21,6 +21,12 @@ class CreateThreadRepliesTable extends Migration
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();
+
+
+
+            $table->foreign('thread_id')->references('id')->on('threads')->onDelete('cascade');
+
+
         });
     }
 

@@ -20,6 +20,11 @@ class CreateThreadViewsTable extends Migration
             $table->date('date');
             $table->string('count');
             $table->timestamps();
+
+
+
+            $table->foreign('thread_id')->references('id')->on('threads')->onDelete('cascade');
+
         });
     }
 

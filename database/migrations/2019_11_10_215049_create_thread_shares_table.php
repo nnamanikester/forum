@@ -19,6 +19,11 @@ class CreateThreadSharesTable extends Migration
             $table->text('ip_address');
             $table->string('count');
             $table->timestamps();
+
+
+
+            $table->foreign('thread_id')->references('id')->on('threads')->onDelete('cascade');
+
         });
     }
 
