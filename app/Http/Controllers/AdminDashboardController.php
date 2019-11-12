@@ -7,30 +7,13 @@ use Illuminate\Http\Request;
 class AdminDashboardController extends Controller
 {
 
-    public function __construct()
-    {
 
-        //$this->middleware('Admin');
-
-    }
-
-    public function dashboard() {
+    public function index() {
 
         return view('admin.index');
 
     }
 
-    public function threads() {
-
-        return view('admin.threads.index');
-
-    }
-
-    public function categories() {
-
-        return view('admin.categories.index');
-
-    }
 
 
 }

@@ -10,6 +10,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{asset('css/libs.css')}}">
+    <link rel="stylesheet" href="{{asset('css/fontawesome-free/css/all.min.css')}}">
 
     @yield('styles')
 
@@ -21,7 +22,13 @@
 
 
 {{--HEADER STARTS--}}
-@yield('header')
+    @if(Auth::check())
+        @include('inc.header_logged_in')
+    @else
+        @include('inc.header')
+    @endif
+
+{{--@yield('header')--}}
 {{--HEADER ENDS--}}
 
 
@@ -36,11 +43,11 @@
 
 {{--SETTINGS STARTS HERE--}}
 
-{{--@if(Auth::check())--}}
+@if(Auth::check())
 
     @include('inc.settings')
 
-{{--@endif--}}
+@endif
 
 {{--SETTINGS ENDS HERE--}}
 
@@ -70,6 +77,7 @@
 <script src="{{asset('js/libs.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @yield('scripts')
 
 

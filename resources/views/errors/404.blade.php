@@ -4,9 +4,9 @@
 @section('title') {{('Topic Title')}} @endsection
 
 
-@section('header')
-    @include('inc.header')
-@endsection
+{{--@section('header')--}}
+    {{--@include('inc.header')--}}
+{{--@endsection--}}
 
 
 @section('content')

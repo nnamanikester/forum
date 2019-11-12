@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 
-@section('title') Threads @endsection
+@section('title') Users @endsection
 
 @section('content')
 
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="/admin">Dashboard</a>
+            <a href="{{route('admin.dashboard')}}">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">Threads</li>
     </ol>

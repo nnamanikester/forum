@@ -1,20 +1,20 @@
 <ul class="sidebar navbar-nav">
     <li class="nav-item active">
-        <a class="nav-link" href="{{route('admin.dashboard')}}">
+        <a class="nav-link" href="{{route('admin.index')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="{{route('admin.threads')}}">
+        <a class="nav-link" href="{{route('categories.index')}}">
             <i class="fas fa-fw fa-list"></i>
             <span>Threads</span>
         </a>
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="{{route('admin.categories')}}">
+        <a class="nav-link" href="{{route('categories.index')}}">
             <i class="fas fa-fw fa-layer-group"></i>
             <span>Categories</span>
         </a>

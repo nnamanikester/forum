@@ -95,9 +95,20 @@
                     <a href="{{route('user.dashboard')}}">
                         <div class="tt-avatar-icon tt-size-md">
                             <i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>
-                            <strong>John Kester</strong>
+                            <strong>{{Str::title(Auth::user()->username)}}</strong>
+
                         </div>
                     </a>
+
+                    <a class="tt-btn-icon" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                        <strong><i class="fas fa-power-off"></i></strong>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

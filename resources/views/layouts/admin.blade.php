@@ -72,11 +72,15 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{{Auth::logout()}}">Logout</a>
+                <a onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-primary" href="{{route('logout')}}">Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Bootstrap core JavaScript-->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -84,16 +88,51 @@
 <script src="{{asset('js/charts/chart-area-demo.js')}}"></script>
 <script src="{{asset('js/dataTables.bootstrap4.js')}}"></script>
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('js/sweetalert.js')}}"></script>
 <script>
 
     $(document).ready(function() {
 
         $('#dataTable').DataTable();
 
+
     });
 
 </script>
+
+
+
 @yield('scripts')
+
+
+
+
+@if(!empty(session('success')))
+    {{--{{session('success')}}--}}
+    <script>
+        swal({
+            title: "{{session('success')}}",
+            icon: "success",
+            button: "ok",
+            timer: 3000,
+        });
+
+    </script>
+
+@endif
+@if(!empty(session('error')))
+    {{--{{session('deleted')}}--}}
+    <script>
+        swal({
+            title: "{{session('error')}}",
+            icon: "error",
+            button: "ok",
+            timer: 3000,
+        });
+
+    </script>
+@endif
+
 
 </body>
 

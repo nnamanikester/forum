@@ -3,9 +3,9 @@
 @section('title') {{('Compose Message')}} @endsection
 
 
-@section('header')
-    @include('inc.header_logged_in')
-@endsection
+{{--@section('header')--}}
+    {{--@include('inc.header_logged_in')--}}
+{{--@endsection--}}
 
 
 @section('content')

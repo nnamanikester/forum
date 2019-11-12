@@ -8,7 +8,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{route('admin.dashboard')}}">Dashboard</a>
+            <a href="{{route('admin.index')}}">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">Categories</li>
     </ol>
@@ -16,23 +16,24 @@
 
     <div class="card mb-3 col-md-6 col-sm-12">
 
+
         <h4>Create Category</h4>
         <hr>
 
-        <form action="">
+        {!! Form::open(['method'=>'POST', 'action'=>'AdminCategoriesController@store']) !!}
 
             <div class="row">
                 <div class="form-group col-md-6">
 
-                    <label for="">Name:</label>
-                    <input type="text" class="form-control" placeholder="Politics" />
+                    {!! Form::label('name', 'Name:') !!}
+                    {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Politics']) !!}
 
                 </div>
 
                 <div class="form-group col-md-6">
 
-                    <label for="">Description:</label>
-                    <textarea placeholder="This is the politics description" name="" id="" cols="30" rows="1" class="form-control"></textarea>
+                    {!! Form::label('description', 'Description:') !!}
+                    {!! Form::textarea('description', null, ['cols'=>'30', 'rows'=>'1', 'class'=>'form-control', 'placeholder'=>'This is the politics description']) !!}
 
                 </div>
             </div>
@@ -43,7 +44,7 @@
 
             </div>
 
-        </form>
+        {!! Form::close() !!}
 
     </div>
 
@@ -51,11 +52,17 @@
         <div class="card-header">
             <i class="fas fa-layer-group"></i>
             Categories</div>
+
         <div class="card-body">
+
+
+
+            @if(count($categories) > 0)
+
+
             <div class="table-responsive">
                 <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-
                     <tr>
                         <th>S/N</th>
                         <th>Name</th>
@@ -70,23 +77,61 @@
 
                     </thead>
                     <tbody>
+
+
+
+                    @foreach($categories as $category)
                     <tr>
-                        <td>1</td>
-                        <td><span class="badge badge-secondary">Politics</span></td>
-                        <td>This is the description</td>
-                        <td><span class="badge badge-primary"><i class="fas fa-question"></i> 364</span></td>
-                        <td><span class="badge badge-danger"><i class="fas fa-heart"></i> 127</span></td>
-                        <td><span class="badge badge-info"><i class="fas fa-eye"></i> 3876</span></td>
-                        <td>25 min ago</td>
-                        <td>25 min ago</td>
+                        <td>{{$sn++}}</td>
+                        <td><span class="badge badge-secondary">{{$category->name}}</span></td>
+                        <td>{{$category->description}}</td>
+                        <td><span class="badge badge-primary"><i class="fas fa-question"></i> {{count($category->threads) > 0 ? count($category->threads) : 0}}</span></td>
+                        <td><span class="badge badge-danger"><i class="fas fa-heart"></i> {{count($category->favourites) > 0 ? count($category->favourites) : 0}}</span></td>
+                        <td><span class="badge badge-info"><i class="fas fa-eye"></i> {{count($category->views) > 0 ? count($category->views) : 0}}</span></td>
+                        <td>{{$category->created_at->diffForHumans()}}</td>
+                        <td>{{$category->updated_at->diffForHumans()}}</td>
                         <td>
-                            <span class="badge badge-success"><i class="fas fa-eye"></i></span>
-                            <span class="badge badge-primary"><i class="fas fa-edit"></i></span>
-                            <span class="badge badge-danger"><i class="fas fa-trash-alt"></i></span>
+                            <a href="#" class="badge badge-success"><i class="fas fa-eye"></i></a>
+                            <a href="{{route('categories.edit', $category->id)}}" class="badge badge-primary"><i class="fas fa-edit"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#delete_category"  class="badge badge-danger"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
+                    @endforeach
+
+
                     </tbody>
                 </table>
+            </div>
+            @else
+
+                <h1 class="text-center">No Categories</h1>
+
+            @endif
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="modal fade" id="delete_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this category?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Click "Delete" button below to delete the category</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    {!! Form::open(['method'=>'DELETE', 'action'=>['AdminCategoriesController@destroy', $category->id]]) !!}
+                        {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>
@@ -95,4 +140,8 @@
 
 @endsection
 
+@section('scripts')
+
+
+@endsection
 

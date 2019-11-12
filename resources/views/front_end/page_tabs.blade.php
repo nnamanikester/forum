@@ -4,9 +4,13 @@
 @section('title') {{('Topic Title')}} @endsection
 
 
-@section('header')
-    @include('inc.header')
-@endsection
+{{--@section('header')--}}
+    {{--@if(Auth::check())--}}
+        {{--@include('inc.header_logged_in')--}}
+    {{--@else--}}
+        {{--@include('inc.header')--}}
+    {{--@endif--}}
+{{--@endsection--}}
 
 
 @section('content')

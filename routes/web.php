@@ -28,11 +28,18 @@ Route::get('/trending', 'FrontEndController@trending')->name('fe.trending');
 
 //ADMIN ROUTE STARTS
 
+Route::group(['middleware'=> 'admin'], function() {
 
-Route::get('/admin/dashboard/', 'AdminDashboardController@dashboard')->name('admin.dashboard');
-Route::get('/admin/threads/', 'AdminDashboardController@threads')->name('admin.threads');
-Route::get('/admin/categories/', 'AdminDashboardController@categories')->name('admin.categories');
 
+    Route::resource('/admin/categories', 'AdminCategoriesController');
+    Route::resource('/admin/threads', 'AdminThreadsController');
+    Route::resource('/admin/users', 'AdminUsersController');
+    
+
+    Route::get('/admin', 'AdminDashboardController@index')->name('admin.index');
+
+
+});
 
 //ADMIN ROUTE ENDS
 
