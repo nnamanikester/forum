@@ -15,6 +15,15 @@ class Photo extends Model
 
     ];
 
+    protected $path = '/images/users/';
+
+
+    public function getPathAttribute($photo) {
+
+        return $this->path . $photo;
+
+    }
+
 
     public function user() {
 

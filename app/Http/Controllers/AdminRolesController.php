@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class AdminCategoriesController extends Controller
+class AdminRolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,11 @@ class AdminCategoriesController extends Controller
     public function index()
     {
 
-        $sn = 1;
-        $categories = Category::all();
+        $roles = Role::all();
 
-        return view('admin.categories.index', compact('categories', 'sn'));
+        $sn = 1;
+
+        return view('admin.roles.index', compact('roles', 'sn'));
 
 
     }
@@ -43,20 +43,11 @@ class AdminCategoriesController extends Controller
     public function store(Request $request)
     {
 
-        $user = Auth::user();
 
-        $data = [
+        Role::create($request->all());
 
-            'name'=>$request->name,
-            'description' => $request->description,
-            'created_by' => $user->id,
-            'updated_by' => $user->id,
+        return redirect()->back()->with('success', 'Role Created Successfully!');
 
-        ];
-
-        Category::create($data);
-
-        return redirect()->back()->with('success', 'Category Created Successfully');
 
 
     }
@@ -69,7 +60,9 @@ class AdminCategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+
+
+
     }
 
     /**
@@ -81,10 +74,11 @@ class AdminCategoriesController extends Controller
     public function edit($id)
     {
 
-        $category = Category::findOrFail($id);
+        $role = Role::findOrFail($id);
 
 
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.roles.edit', compact('role'));
+
 
 
     }
@@ -99,9 +93,12 @@ class AdminCategoriesController extends Controller
     public function update(Request $request, $id)
     {
 
-        Category::findOrFail($id)->update($request->all());
 
-        return redirect()->route('categories.index')->with('success', 'Updated Successfully!');
+        Role::findOrFail($id)->update($request->all());
+
+        return redirect()->route('roles.index')->with('success', 'Updated Successfully!');
+
+
 
     }
 
@@ -114,24 +111,30 @@ class AdminCategoriesController extends Controller
     public function destroy($id)
     {
 
-        Category::findOrFail($id)->delete();
+
+        Role::findOrFail($id)->delete();
 
         return redirect()->back()->with('success', 'Deleted Successfully!');
 
     }
 
 
-    public function threads($id) {
+    public function users($id) {
 
-        $category = Category::findOrFail($id);
+        $role = Role::findOrFail($id);
 
-        $threads = $category->threads;
+        $users = $role->users->all();
 
         $sn = 1;
 
-        return view('admin.categories.threads', compact('threads', 'category', 'sn'));
+        foreach($users as $user) {
+
+            $level = $user->level;
+
+        }
+
+        return view('admin.roles.users', compact('users', 'role', 'sn', 'level'));
 
     }
-
 
 }

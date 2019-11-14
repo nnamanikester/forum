@@ -10,7 +10,7 @@ class Level extends Model
     protected $fillable = [
 
         'name',
-        'crated_by',
+        'created_by',
         'updated_by'
 
     ];

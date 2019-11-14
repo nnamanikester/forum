@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Thread extends Model
 {
@@ -20,6 +21,22 @@ class Thread extends Model
 
     ];
 
+
+    public function getCreatedByAttribute($value) {
+
+        $user = User::findOrFail($value);
+
+        return Str::title($user->username);
+
+    }
+
+    public function getUpdatedByAttribute($value) {
+
+        $user = User::findOrFail($value);
+
+        return Str::title($user->username);
+
+    }
 
 
     public function user() {

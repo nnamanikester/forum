@@ -34,9 +34,16 @@ Route::group(['middleware'=> 'admin'], function() {
     Route::resource('/admin/categories', 'AdminCategoriesController');
     Route::resource('/admin/threads', 'AdminThreadsController');
     Route::resource('/admin/users', 'AdminUsersController');
-    
+    Route::resource('/admin/roles', 'AdminRolesController');
+    Route::resource('/admin/levels', 'AdminLevelsController');
+
 
     Route::get('/admin', 'AdminDashboardController@index')->name('admin.index');
+    Route::get('/admin/roles/{id}/users', 'AdminRolesController@users')->name('roles.users');
+    Route::get('/admin/levels/{id}/users', 'AdminLevelsController@users')->name('levels.users');
+    Route::get('/admin/users/{id}/status', 'AdminUsersController@status')->name('users.status');
+    Route::get('/admin/threads/{slug}/status', 'AdminThreadsController@status')->name('threads.status');
+    Route::get('/admin/categories/{id}/threads', 'AdminCategoriesController@threads')->name('categories.threads');
 
 
 });

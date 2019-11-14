@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Level;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class AdminCategoriesController extends Controller
+class AdminLevelsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,11 @@ class AdminCategoriesController extends Controller
     public function index()
     {
 
-        $sn = 1;
-        $categories = Category::all();
+        $levels = Level::all();
 
-        return view('admin.categories.index', compact('categories', 'sn'));
+        $sn = 1;
+
+        return view('admin.levels.index', compact('levels', 'sn'));
 
 
     }
@@ -43,21 +43,9 @@ class AdminCategoriesController extends Controller
     public function store(Request $request)
     {
 
-        $user = Auth::user();
+        Level::create($request->all());
 
-        $data = [
-
-            'name'=>$request->name,
-            'description' => $request->description,
-            'created_by' => $user->id,
-            'updated_by' => $user->id,
-
-        ];
-
-        Category::create($data);
-
-        return redirect()->back()->with('success', 'Category Created Successfully');
-
+        return redirect()->back()->with('success', 'Level Created Successfully!');
 
     }
 
@@ -81,11 +69,9 @@ class AdminCategoriesController extends Controller
     public function edit($id)
     {
 
-        $category = Category::findOrFail($id);
+        $level = Level::findOrFail($id);
 
-
-        return view('admin.categories.edit', compact('category'));
-
+        return view('admin.levels.edit', compact('level'));
 
     }
 
@@ -99,9 +85,9 @@ class AdminCategoriesController extends Controller
     public function update(Request $request, $id)
     {
 
-        Category::findOrFail($id)->update($request->all());
+        Level::findOrFail($id)->update($request->all());
 
-        return redirect()->route('categories.index')->with('success', 'Updated Successfully!');
+        return redirect()->route('levels.index')->with('success', 'Level Updated Succesfully!');
 
     }
 
@@ -114,22 +100,22 @@ class AdminCategoriesController extends Controller
     public function destroy($id)
     {
 
-        Category::findOrFail($id)->delete();
+        Level::findOrFail($id)->delete();
 
-        return redirect()->back()->with('success', 'Deleted Successfully!');
+        return redirect()->back()->with('success', 'Level Deleted Successfully!');
 
     }
 
 
-    public function threads($id) {
+    public function users($id) {
 
-        $category = Category::findOrFail($id);
+        $level = Level::findOrFail($id);
 
-        $threads = $category->threads;
+        $users = $level->users;
 
         $sn = 1;
 
-        return view('admin.categories.threads', compact('threads', 'category', 'sn'));
+        return view('admin.levels.users', compact('users', 'sn', 'level'));
 
     }
 

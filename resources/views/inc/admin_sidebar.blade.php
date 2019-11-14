@@ -6,17 +6,52 @@
         </a>
     </li>
 
-    <li class="nav-item active">
-        <a class="nav-link" href="{{route('categories.index')}}">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Threads</span>
+    <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="usersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Manage Users</span>
         </a>
+        <div class="dropdown-menu" aria-labelledby="usersDropdown">
+            <a class="dropdown-item" href="{{route('users.index')}}">All Users</a>
+            <a class="dropdown-item" href="{{route('roles.users', 1)}}">Administrators</a>
+            <a class="dropdown-item" href="{{route('roles.users', 2)}}">Moderators</a>
+            <a class="dropdown-item" href="{{route('roles.users', 3)}}">Subscribers</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="threadsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Manage Threads</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="threadsDropdown">
+            <a class="dropdown-item" href="{{route('threads.index')}}">All Threads</a>
+            <a class="dropdown-item" href="{{route('threads.index')}}">Approved Threads</a>
+            <a class="dropdown-item" href="{{route('threads.index')}}">Pending Threads</a>
+            <a class="dropdown-item" href="{{route('threads.index')}}">Bocked Threads</a>
+        </div>
     </li>
 
     <li class="nav-item active">
         <a class="nav-link" href="{{route('categories.index')}}">
             <i class="fas fa-fw fa-layer-group"></i>
-            <span>Categories</span>
+            <span>Manage Categories</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('levels.index')}}">
+            <i class="fas fa-fw fa-layer-group"></i>
+            <span>Manage Levels</span>
+        </a>
+    </li>
+
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('roles.index')}}">
+            <i class="fas fa-fw fa-layer-group"></i>
+            <span>Manage Roles</span>
         </a>
     </li>
 
