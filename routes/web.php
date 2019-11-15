@@ -42,7 +42,12 @@ Route::group(['middleware'=> 'admin'], function() {
     Route::get('/admin/roles/{id}/users', 'AdminRolesController@users')->name('roles.users');
     Route::get('/admin/levels/{id}/users', 'AdminLevelsController@users')->name('levels.users');
     Route::get('/admin/users/{id}/status', 'AdminUsersController@status')->name('users.status');
+    Route::get('/admin/active-users', 'AdminUsersController@active')->name('users.active');
+    Route::get('/admin/pending-users', 'AdminUsersController@pending')->name('users.pending');
+    Route::get('/admin/blocked-users', 'AdminUsersController@blocked')->name('users.blocked');
     Route::get('/admin/threads/{slug}/status', 'AdminThreadsController@status')->name('threads.status');
+    Route::get('/admin/approved-threads', 'AdminThreadsController@approved')->name('threads.approved');
+    Route::get('/admin/pending-threads', 'AdminThreadsController@pending')->name('threads.pending');
     Route::get('/admin/categories/{id}/threads', 'AdminCategoriesController@threads')->name('categories.threads');
 
 

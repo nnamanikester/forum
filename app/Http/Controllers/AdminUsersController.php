@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Level;
+use App\Photo;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUsersController extends Controller
 {
@@ -73,20 +75,29 @@ class AdminUsersController extends Controller
 
         }
 
-        $data = [
+        $data = $request->all();
 
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'country' => $request->country,
-            'website' => $request->website,
-            'bio' => $request->bio,
-            'status' => $request->status,
-            'role_id' => $request->role_id,
-            'level_id' => $request->level_id,
+        $data['password'] = bcrypt($request->password);
 
-        ];
+        if($path = $request->file('photo_id')) {
+
+            $name = time() . Auth::user()->username . $path->getClientOriginalName();
+
+            $path->move('images/users', $name);
+
+            $photo = new Photo;
+
+            $photo->create([
+
+                'path'=>$name,
+                'created_by'=>Auth::user()->id,
+                'updated_by'=>Auth::user()->id
+
+            ]);
+
+            $data['photo_id'] = $photo->id;
+
+        }
 
         User::create($data);
 
@@ -147,24 +158,44 @@ class AdminUsersController extends Controller
 
         }
 
-        $data = [
+        $data = $request->all();
 
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => $password,
-            'country' => $request->country,
-            'website' => $request->website,
-            'bio' => $request->bio,
-            'status' => $request->status,
-            'level_id' => $request->level_id,
-            'role_id' => $request->role_id,
+        $data['password'] = $password;
 
-        ];
+        if($path = $request->file('photo_id')) {
+
+            $name = time() . Auth::user()->username . $path->getClientOriginalName();
+
+            $path->move('images/users', $name);
+
+            if($user->photo) {
+
+                if(file_exists(public_path() . $user->photo->path)) {
+
+                    unlink(public_path() . $user->photo->path);
+
+                    $user->photo->delete();
+
+                }
+
+            }
+
+            $photo = Photo::create([
+
+                'path'=>$name,
+                'created_by'=>Auth::user()->id,
+                'updated_by'=>Auth::user()->id
+
+            ]);
+
+            $data['photo_id'] = $photo->id;
+
+        }
+
 
         $user->update($data);
 
-        return redirect()->route('roles.users', $user->role->id)->with('success', 'User Updated Successfully!');
+        return redirect()->route('users.index')->with('success', 'User Created Successfully!');
 
 
     }
@@ -178,8 +209,22 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
 
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
 
+        if($user->photo) {
+
+            if(file_exists(public_path() . $user->photo->path)) {
+
+                $user->photo->delete();
+
+                unlink(public_path() . $user->photo->path);
+
+            }
+
+        }
+
+
+        $user->delete();
 
         return redirect()->back()->with('success', 'User Deleted Successfully!');
 
@@ -202,6 +247,39 @@ class AdminUsersController extends Controller
         }
 
         return redirect()->back()->with('success', 'Status Updated Successfully!');
+
+    }
+
+    public function active() {
+
+        $users = User::where('status', '1')->get();
+
+        $sn = 1;
+
+        return view('admin.users.active', compact('users', 'sn'));
+
+
+    }
+
+    public function pending() {
+
+        $users = User::where('status', '0')->get();
+
+        $sn = 1;
+
+        return view('admin.users.pending', compact('users', 'sn'));
+
+
+    }
+
+    public function blocked() {
+
+        $users = User::where('status', '2')->get();
+
+        $sn = 1;
+
+        return view('admin.users.blocked', compact('users', 'sn'));
+
 
     }
 

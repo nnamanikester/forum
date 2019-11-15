@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 
-@section('title') {{Str::title($category->name)}} Threads @endsection
+@section('title') Approved Threads @endsection
 
 @section('content')
 
@@ -11,16 +11,16 @@
             <a href="{{route('admin.index')}}">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{route('categories.index')}}">Categories</a>
+            <a href="{{route('threads.index')}}">Threads</a>
         </li>
-        <li class="breadcrumb-item active">{{Str::title($category->name)}} Threads</li>
+        <li class="breadcrumb-item active">Approved Threads</li>
     </ol>
 
 
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fas fa-reply-all"></i>
-            {{Str::title($category->name)}} Threads
+            <i class="fas fa-list-ol"></i>
+            Approved Thread
         </div>
 
         @if(count($threads) > 0)

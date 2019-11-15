@@ -22,8 +22,8 @@
 
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fas fa-list-ol"></i>
-            All Threads</div>
+            <i class="fas fa-users"></i>
+            All Users</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -49,7 +49,7 @@
                         @if($user->status == 1)
                             <?php $status = 'Block'; $class = 'badge-success'; $fa = 'fa-ban'; ?>
                         @elseif($user->status == 0)
-                            <?php $status = 'Inactive'; $class = 'badge-secondary'; $fa = 'fa-info-circle'; ?>
+                            <?php $status = 'Pending'; $class = 'badge-warning'; $fa = 'fa-info-circle'; ?>
                         @else
                             <?php $status = 'Activate'; $class = 'badge-danger'; $fa = 'fa-check'; ?>
                         @endif
@@ -67,7 +67,7 @@
 
                         <tr>
                             <td>{{$sn++}}</td>
-                            <td><img width="30" height="30" src="{{$user->photo ? $user->photo->path : 'no photo'}}" alt=""></td>
+                            <td><img width="30" height="30" src="{{$user->photo ? $user->photo->path : '/images/users/default.png'}}" alt=""></td>
                             <td>{{Str::title($user->name)}}</td>
                             <td><span class="badge badge-primary"></i> {{$user->username}}</span></td>
                             <td>{{$user->email}}</td>
@@ -122,16 +122,23 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
                     <a href="#" data-dismiss="modal" class="close">
                         <span aria-hidden="true">×</span>
                     </a>
                 </div>
                 <div class="modal-body">
 
-                    {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store']) !!}
+                    {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store', 'files'=>true]) !!}
 
                     <div class="row">
+
+                        <div class="form-group col-md-6">
+
+                            {!! Form::label('photo_id', 'Photo:') !!}
+                            {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
+
+                        </div>
 
                         <div class="form-group col-md-6">
 

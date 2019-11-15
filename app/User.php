@@ -27,7 +27,8 @@ class User extends Authenticatable
         'bio',
         'status',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'photo_id'
     ];
 
     /**

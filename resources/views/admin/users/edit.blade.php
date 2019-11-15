@@ -20,9 +20,22 @@
                 </div>
                 <div class="modal-body">
 
-                    {!! Form::model($user, ['method'=>'PATCH', 'action'=>['AdminUsersController@update', $user->id]]) !!}
+                    {!! Form::model($user, ['method'=>'PATCH', 'action'=>['AdminUsersController@update', $user->id], 'files'=>true]) !!}
 
                         <div class="row">
+
+                            <div class="form-group col-md-4">
+
+                                <img width="100" height="100" src="{{$user->photo ? $user->photo->path : ''}}" alt="">
+
+                            </div>
+
+                            <div class="form-group col-md-8">
+
+                                {!! Form::label('photo_id', 'Photo:') !!}
+                                {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
+
+                            </div>
 
                             <div class="form-group col-md-6">
 

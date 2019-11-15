@@ -99,25 +99,25 @@
 
 
 
-    <div class="modal fade" id="delete_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this category?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Click "Delete" button below to delete the User</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id ?? '']]) !!}
-                        {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
+    {{--<div class="modal fade" id="delete_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+        {{--<div class="modal-dialog" role="document">--}}
+            {{--<div class="modal-content">--}}
+                {{--<div class="modal-header">--}}
+                    {{--<h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this category?</h5>--}}
+                    {{--<button class="close" type="button" data-dismiss="modal" aria-label="Close">--}}
+                        {{--<span aria-hidden="true">×</span>--}}
+                    {{--</button>--}}
+                {{--</div>--}}
+                {{--<div class="modal-body">Click "Delete" button below to delete the User</div>--}}
+                {{--<div class="modal-footer">--}}
+                    {{--<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>--}}
+                    {{--{!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id ?? '']]) !!}--}}
+                        {{--{!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}--}}
+                    {{--{!! Form::close() !!}--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
 
     {{--VIEW USERS MODAL--}}

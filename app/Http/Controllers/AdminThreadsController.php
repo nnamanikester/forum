@@ -208,5 +208,25 @@ class AdminThreadsController extends Controller
 
     }
 
+    public function approved() {
+
+        $threads = Thread::where('status', '1')->get();
+
+        $sn = 1;
+
+        return view('admin.threads.approved', compact('threads', 'sn'));
+
+    }
+
+    public function pending() {
+
+        $threads = Thread::where('status', '0')->get();
+
+        $sn = 1;
+
+        return view('admin.threads.pending', compact('threads', 'sn'));
+
+    }
+
 
 }
