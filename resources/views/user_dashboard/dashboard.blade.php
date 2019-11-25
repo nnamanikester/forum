@@ -1,11 +1,24 @@
 @extends('layouts.front_end')
 
-@section('title') {{('Compose Message')}} @endsection
+@section('title') {{Str::title($user->username), 'Dashboard'}} @endsection
 
 
 {{--@section('header')--}}
     {{--@include('inc.header_logged_in')--}}
 {{--@endsection--}}
+
+
+@if($user->level)
+    @if($user->level->name == 'newbie')
+        <?php $class = 'tt-color08'; $levelfa = 'fa-grin'; ?>
+    @elseif($user->level->name == 'regular')
+        <?php $class = 'tt-color03'; $levelfa = 'fa-lemon'; ?>
+    @elseif($user->level->name == 'master')
+        <?php $class = 'tt-color19'; $levelfa = 'fa-leaf'; ?>
+    @else
+        <?php $class = 'badge-secondary'; ?>
+    @endif
+@endif
 
 
 @section('content')
@@ -17,16 +30,16 @@
                 <div class="tt-col-avatar">
                     <div class="tt-icon">
                         <svg class="tt-icon">
-                            <use xlink:href="#icon-ava-d"></use>
+                            <img width="40" height="40" src="{{$user->photo ? $user->photo->path : '/images/users/default.png'}}" alt="">
                         </svg>
                     </div>
                 </div>
                 <div class="tt-col-title">
                     <div class="tt-title">
-                        <a href="#">Dylan89</a>
+                        <a href="#">{{Str::title($user->username)}}</a>
                     </div>
                     <ul class="tt-list-badge">
-                        <li><a href="#"><span class="tt-color14 tt-badge">LVL : 26</span></a></li>
+                        <li><a href="#"><span class="tt-badge {{$class}}" style="color: white;"><i class="fa {{$levelfa}}"> </i> {{$user->level ? $user->level->name : 'No Level'}}</span></a></li>
                     </ul>
                 </div>
                 <div class="tt-col-btn" >
@@ -36,8 +49,8 @@
                                 <use xlink:href="#icon-settings_fill"></use>
                             </svg>
                         </a>
-                        <a href="{{route('user.compose')}}" class="btn btn-primary">Message</a>
-                        <a href="#" class="btn btn-secondary">Follow</a>
+                        {{--<a href="{{route('user.compose')}}" class="btn btn-primary">Message</a>--}}
+                        {{--<a href="#" class="btn btn-secondary">Follow</a>--}}
                     </div>
                 </div>
             </div>
@@ -158,49 +171,53 @@
                             <div class="tt-col-value hide-mobile">Views</div>
                             <div class="tt-col-value">Date</div>
                         </div>
-                        <div class="tt-item">
-                            <div class="tt-col-avatar">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-ava-d"></use>
-                                </svg>
-                            </div>
-                            <div class="tt-col-description">
-                                <h6 class="tt-title"><a href="#">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-pinned"></use>
-                                        </svg>
-                                        Halloween Costume Contest 2018
-                                    </a></h6>
-                                <div class="row align-items-center no-gutters">
-                                    <div class="col-11">
-                                        <ul class="tt-list-badge">
-                                            <li class="show-mobile"><a href="#"><span class="tt-color01 tt-badge">politics</span></a></li>
-                                            <li><a href="#"><span class="tt-badge">contests</span></a></li>
-                                            <li><a href="#"><span class="tt-badge">authors</span></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-1 ml-auto show-mobile">
-                                        <div class="tt-value">1h</div>
+
+
+                        @foreach($threads as $thread)
+                            <div class="tt-item">
+                                <div class="tt-col-avatar">
+                                    <img width="40" height="40" src="{{$thread->user->photo ? $thread->user->photo->path : '/images/users/default.png'}}" alt="">
+                                </div>
+                                <div class="tt-col-description">
+                                    <h6 class="tt-title"><a href="{{route('fe.topic', $thread->slug ?? '')}}">
+                                            {{Str::title($thread->topic)}}
+                                        </a></h6>
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col-11">
+                                            <ul class="tt-list-badge">
+                                                <li class="show-mobile"><a href="{{route('fe.category', $thread->category->slug ?? '')}}"><span class="tt-color01 tt-badge">{{$thread->category ? Str::title($thread->category->name) : 'UnCategorized'}}</span></a></li>
+                                                @if(count($thread->tags) > 0)
+                                                    <?php $cnt = 1; ?>
+                                                    @foreach($thread->tags as $tag)
+                                                        <li><a href="#"><span class="tt-badge">{{$tag->name}}</span></a></li>
+                                                        @if($cnt === 2)
+                                                            @break
+                                                        @endif
+                                                        <?php $cnt++ ?>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
+                                        <div class="col-1 ml-auto show-mobile">
+                                            <div class="tt-value">{{$thread->created_at ? $thread->created_at->diffForHumans() : ''}}</div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="tt-col-category"><span class="tt-color01 tt-badge">{{$thread->category ? Str::title($thread->category->name) : 'UnCategorized'}}</span></div>
+                                <div class="tt-col-value hide-mobile">{{count($thread->likes) > 0 ? count($thread->likes) : 0}}</div>
+                                <div class="tt-col-value tt-color-select  hide-mobile">{{count($thread->replies) > 0 ? count($thread->replies) : 0}}</div>
+                                <div class="tt-col-value hide-mobile">{{count($thread->views) > 0 ? count($thread->views) : 0}}</div>
+                                <div class="tt-col-value hide-mobile">{{$thread->created_at ? $thread->created_at->diffForHumans() : ''}}</div>
                             </div>
-                            <div class="tt-col-category"><span class="tt-color01 tt-badge">politics</span></div>
-                            <div class="tt-col-value hide-mobile">985</div>
-                            <div class="tt-col-value tt-color-select  hide-mobile">502</div>
-                            <div class="tt-col-value hide-mobile">15.1k</div>
-                            <div class="tt-col-value hide-mobile">1h</div>
-                        </div>
+
+                        @endforeach
 
 
 
 
                         <div class="tt-row-btn">
                             {{--PAGINATION GOES HERE--}}
-                            <button type="button" class="btn-icon js-topiclist-showmore">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-load_lore_icon"></use>
-                                </svg>
-                            </button>
+                            {{$threads->links()}}
                         </div>
 
 
@@ -366,34 +383,39 @@
                     <div class="tt-wrapper-inner">
                         <div class="tt-categories-list">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="tt-item">
-                                        <div class="tt-item-header">
-                                            <ul class="tt-list-badge">
-                                                <li><a href="#"><span class="tt-color01 tt-badge">politics</span></a></li>
-                                            </ul>
-                                            <h6 class="tt-title"><a href="#">Threads - 1,245</a></h6>
-                                        </div>
-                                        <div class="tt-item-layout">
-                                            <div class="innerwrapper">
-                                                Lets discuss about whats happening around the world politics.
-                                            </div>
-                                            <div class="innerwrapper">
-                                                <h6 class="tt-title">Similar TAGS</h6>
+
+                                @foreach($categories as $category)
+
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="tt-item">
+                                            <div class="tt-item-header">
                                                 <ul class="tt-list-badge">
-                                                    <li><a href="#"><span class="tt-badge">world politics</span></a></li>
-                                                    <li><a href="#"><span class="tt-badge">human rights</span></a></li>
-                                                    <li><a href="#"><span class="tt-badge">trump</span></a></li>
-                                                    <li><a href="#"><span class="tt-badge">climate change</span></a></li>
-                                                    <li><a href="#"><span class="tt-badge">foreign policy</span></a></li>
+                                                    <li><a href="{{route('fe.category_threads', $category->id)}}"><span class="tt-color01 tt-badge">{{Str::title($category->name)}}</span></a></li>
                                                 </ul>
+                                                <h6 class="tt-title"><a href="#">Threads - {{count($category->threads) > 0 ? count($category->threads) : 0}}</a></h6>
                                             </div>
-                                            <a href="#" class="tt-btn-icon">
-                                                <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                                            </a>
+                                            <div class="tt-item-layout">
+                                                <div class="innerwrapper">
+                                                    {{$category->description ? $category->description : ''}}
+                                                </div>
+                                                <div class="innerwrapper">
+                                                    <h6 class="tt-title">Similar TAGS</h6>
+                                                    <ul class="tt-list-badge">
+                                                        <li><a href="#"><span class="tt-badge">world politics</span></a></li>
+                                                        <li><a href="#"><span class="tt-badge">human rights</span></a></li>
+                                                        <li><a href="#"><span class="tt-badge">trump</span></a></li>
+                                                        <li><a href="#"><span class="tt-badge">climate change</span></a></li>
+                                                        <li><a href="#"><span class="tt-badge">foreign policy</span></a></li>
+                                                    </ul>
+                                                </div>
+                                                <a href="#" class="tt-btn-icon">
+                                                    <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+                                @endforeach
 
 
                                 <div class="col-12">

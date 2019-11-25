@@ -27475,12 +27475,12 @@ document.getElementById('#dataTable').DataTable();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp\www\forum\resources\js\all.min.js */"./resources/js/all.min.js");
-__webpack_require__(/*! C:\wamp\www\forum\resources\js\bootstrap.min.js */"./resources/js/bootstrap.min.js");
-__webpack_require__(/*! C:\wamp\www\forum\resources\js\Chart.min.js */"./resources/js/Chart.min.js");
-__webpack_require__(/*! C:\wamp\www\forum\resources\js\jquery.easing.min.js */"./resources/js/jquery.easing.min.js");
-__webpack_require__(/*! C:\wamp\www\forum\resources\js\jquery.min.js */"./resources/js/jquery.min.js");
-module.exports = __webpack_require__(/*! C:\wamp\www\forum\resources\js\sb-admin.min.js */"./resources/js/sb-admin.min.js");
+__webpack_require__(/*! C:\wamp64\www\forum\resources\js\all.min.js */"./resources/js/all.min.js");
+__webpack_require__(/*! C:\wamp64\www\forum\resources\js\bootstrap.min.js */"./resources/js/bootstrap.min.js");
+__webpack_require__(/*! C:\wamp64\www\forum\resources\js\Chart.min.js */"./resources/js/Chart.min.js");
+__webpack_require__(/*! C:\wamp64\www\forum\resources\js\jquery.easing.min.js */"./resources/js/jquery.easing.min.js");
+__webpack_require__(/*! C:\wamp64\www\forum\resources\js\jquery.min.js */"./resources/js/jquery.min.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\forum\resources\js\sb-admin.min.js */"./resources/js/sb-admin.min.js");
 
 
 /***/ })

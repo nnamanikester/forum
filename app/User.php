@@ -178,13 +178,17 @@ class User extends Authenticatable
 
     public function isAdmin() {
 
-        if($this->role->id == 1) {
+        if($this->role) {
 
-            return true;
+            if($this->role->id == 1) {
+
+                return true;
+
+            }
+
+            return false;
 
         }
-
-        return false;
 
     }
 

@@ -15,6 +15,7 @@ class Thread extends Model
         'topic',
         'description',
         'slug',
+        'featured',
         'status',
         'created_by',
         'updated_by'

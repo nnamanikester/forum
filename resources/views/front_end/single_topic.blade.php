@@ -1,7 +1,7 @@
 @extends('layouts.front_end')
 
 
-@section('title') {{('Topic Title')}} @endsection
+@section('title') {{ Str::title($thread->topic) }} @endsection
 
 
 {{--@section('header')--}}
@@ -24,50 +24,46 @@
                                 <i class="tt-icon"><svg><use xlink:href="#icon-ava-d"></use></svg></i>
                             </div>
                             <div class="tt-avatar-title">
-                                <a href="#">dylan89</a>
+                                <a href="#">{{ Str::title($thread->user->username) }}</a>
                             </div>
                             <a href="#" class="tt-info-time">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
+                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>{{ $thread->created_at->toFormattedDateString() }}
                             </a>
                         </div>
                         <h3 class="tt-item-title">
-                            <a href="#">Web Hosting Packages for ThemeForest WordPress</a>
+                            <a href="#">{{ Str::title($thread->topic) }}</a>
                         </h3>
                         <div class="tt-item-tag">
                             <ul class="tt-list-badge">
-                                <li><a href="#"><span class="tt-color03 tt-badge">exchange</span></a></li>
-                                <li><a href="#"><span class="tt-badge">themeforest</span></a></li>
-                                <li><a href="#"><span class="tt-badge">elements</span></a></li>
+                                <li><a href="{{route('fe.category', $thread->category->id ?? '')}}"><span class="tt-color03 tt-badge">{{$thread->category ? Str::title($thread->category->name) : 'UnCategorized'}}</span></a></li>
+                                @if(count($thread->tags) > 0)
+                                    <?php $cnt = 1; ?>
+                                    @foreach($thread->tags as $tag)
+                                        <li><a href="#"><span class="tt-badge">{{$tag->name}}</span></a></li>
+                                        @if($cnt === 2)
+                                            @break
+                                        @endif
+                                        <?php $cnt++ ?>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
                     <div class="tt-item-description">
-                        <h6 class="tt-title">Get ready for Movember!</h6>
-                        <p>
-                            It’s time to channel your inner Magnum P.I., Ron Swanson or Hercule Poroit! It’s the time that all guys (or gals) love and all our
-                            partners hate It’s Movember!
-                        </p>
-                        <p>
-                            Throughout November we will be inviting all community members to help raise awareness and funds for the lives of men affected
-                            by cancer and mental health problems via the Movember Foundation 10.
-                        </p>
-                        <h6 class="tt-title">How Does it Work?</h6>
-                        <p>
-                            Authors and customers with facial hair unite! Simply grow, groom, and share your facial hair during November! Even females can enter if they desire (be creative, ladies!). Be inspired by checking out last year’s highlights 28.
-                        </p>
+                        {!! $thread->description !!}
                     </div>
                     <div class="tt-item-info info-bottom">
                         <a href="#" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span class="tt-text">671</span>
+                            <span class="tt-text">{{ count($thread->likes) > 0 ? count($thread->likes) : 0 }}</span>
                         </a>
                         <a href="#" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                            <span class="tt-text">39</span>
+                            <span class="tt-text">{{ count($thread->dislikes) > 0 ? count($thread->dislikes) : 0 }}</span>
                         </a>
                         <a href="#" class="tt-icon-btn">
                             <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                            <span class="tt-text">12</span>
+                            <span class="tt-text">{{ count($thread->favourites) > 0 ? count($thread->favourites) : 0 }}</span>
                         </a>
                         <div class="col-separator"></div>
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
@@ -95,37 +91,31 @@
                         <div class="tt-item">
                             <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                                <span class="tt-text">283</span>
+                                <span class="tt-text">{{ count($thread->replies) > 0 ? count($thread->replies) : 0 }}</span>
                             </a>
                         </div>
                         <div class="tt-item">
                             <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-view"></use></svg></i>
-                                <span class="tt-text">10.5k</span>
-                            </a>
-                        </div>
-                        <div class="tt-item">
-                            <a href="#" class="tt-icon-btn tt-position-bottom">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-user"></use></svg></i>
-                                <span class="tt-text">168</span>
+                                <span class="tt-text">{{ count($thread->views) > 0 ? count($thread->views) : 0 }}</span>
                             </a>
                         </div>
                         <div class="tt-item">
                             <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                                <span class="tt-text">2.4k</span>
+                                <span class="tt-text">{{ count($thread->likes) > 0 ? count($thread->likes) : 0 }}</span>
                             </a>
                         </div>
                         <div class="tt-item">
                             <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                                <span class="tt-text">951</span>
+                                <span class="tt-text">{{ count($thread->favourites) > 0 ? count($thread->favourites) : 0 }}</span>
                             </a>
                         </div>
                         <div class="tt-item">
                             <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                                <span class="tt-text">32</span>
+                                <span class="tt-text">{{ count($thread->shares) > 0 ? count($thread->shares) : 0 }}</span>
                             </a>
                         </div>
                     </div>
@@ -449,7 +439,7 @@
                     </svg>
                 </div>
                 <div class="tt-col-description">
-                    <h6 class="tt-title"><a href="{{route('fe.topic')}}">
+                    <h6 class="tt-title"><a href="#">
                             Cannot customize my intro
                         </a></h6>
                     <div class="row align-items-center no-gutters">

@@ -55,14 +55,16 @@
                         @endif
 
 
-                        @if($user->level->name == 'newbie')
-                            <?php $classs = 'badge-danger'; $levelfa = 'fa-grin'; ?>
-                        @elseif($user->level->name == 'regular')
-                            <?php $classs = 'badge-info'; $levelfa = 'fa-lemon'; ?>
-                        @elseif($user->level->name == 'master')
-                            <?php $classs = 'badge-success'; $levelfa = 'fa-leaf'; ?>
-                        @else
-                            <?php $classs = 'badge-secondary'; ?>
+                        @if($user->level)
+                            @if($user->level->name == 'newbie')
+                                <?php $classs = 'badge-danger'; $levelfa = 'fa-grin'; ?>
+                            @elseif($user->level->name == 'regular')
+                                <?php $classs = 'badge-info'; $levelfa = 'fa-lemon'; ?>
+                            @elseif($user->level->name == 'master')
+                                <?php $classs = 'badge-success'; $levelfa = 'fa-leaf'; ?>
+                            @else
+                                <?php $classs = 'badge-secondary'; ?>
+                            @endif
                         @endif
 
                         <tr>
@@ -72,8 +74,8 @@
                             <td><span class="badge badge-primary"></i> {{$user->username}}</span></td>
                             <td>{{$user->email}}</td>
                             <td><span class="badge badge-info"><i class="fas fa-reply"></i> {{count($user->threads) > 0 ? count($user->threads) : 0}}</span></td>
-                            <td><span class="badge {{$classs}}"><i class="fas {{$levelfa ?? ''}}"></i> {{$user->level->name}}</span></td>
-                            <td><a href="{{route('users.status', $user->id)}}" class="badge {{$class}}"><i class="fas {{$fa}}"></i> {{$status}}</a></td>
+                            <td><span class="badge {{$classs ?? ''}}"><i class="fas {{$levelfa ?? ''}}"></i> {{$user->level->name}}</span></td>
+                            <td><a href="{{route('users.status', $user->id)}}" class="badge {{$class ?? ''}}"><i class="fas {{$fa}}"></i> {{$status}}</a></td>
                             <td>{{$user->created_at->diffForHumans()}}</td>
                             <td>
                                 <a href="#" class="badge badge-success"><i class="fas fa-eye"></i></a>

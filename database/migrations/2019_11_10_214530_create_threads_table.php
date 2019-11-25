@@ -21,6 +21,7 @@ class CreateThreadsTable extends Migration
             $table->text('description');
             $table->string('slug')->unique();
             $table->integer('status')->unsigned();
+            $table->integer('featured')->unsigned();
             $table->integer('created_by')->unsigned();
             $table->integer('updated_by')->unsigned();
             $table->timestamps();

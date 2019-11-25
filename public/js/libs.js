@@ -10305,7 +10305,7 @@ if (y && v) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\wamp\www\forum\resources\js\bundle.js */"./resources/js/bundle.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\forum\resources\js\bundle.js */"./resources/js/bundle.js");
 
 
 /***/ })

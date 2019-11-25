@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Thread;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -18,7 +20,16 @@ class FrontEndController extends Controller
 
     public function home() {
 
-        return view('front_end.index');
+        $count = 1;
+
+        $count++;
+
+        $threads = Thread::orderBy('id', 'desc')->paginate(15);
+
+        $featured_threads = Thread::where('featured', 1)->take(3)->get();
+
+
+        return view('front_end.index', compact('count', 'threads', 'featured_threads'));
 
     }
 
@@ -53,15 +64,23 @@ class FrontEndController extends Controller
     }
 
 
-    public function category() {
+    public function category($id) {
 
-        return view('front_end.single_category');
+        $category = Category::findOrFail($id);
+
+        $categories = Category::all();
+
+        $threads = Thread::where('category_id', $category->id)->orderBy('id', 'desc')->paginate(15);
+
+        return view('front_end.single_category', compact('category', 'threads', 'categories'));
 
     }
 
-    public function topic() {
+    public function topic($slug) {
 
-        return view('front_end.single_topic');
+        $thread = Thread::where('slug', $slug)->first();
+
+        return view('front_end.single_topic', compact('thread'));
 
     }
 

@@ -12,121 +12,57 @@
 
     <div class="tt-wrapper-inner">
             <h1 class="tt-title-border">
-                Create New Topic
+                Create New Thread
             </h1>
-            <form class="form-default form-create-topic">
+
+            {{Form::open(['method'=>'POST', 'action'=>'UserDashboardController@topicstore', 'class'=>'form-default form-create-topic'])}}
+
+                {{Form::hidden('status', 0)}}
+                {{Form::hidden('featured', 0)}}
+                {{Form::hidden('user_id', Auth::user()->id)}}
+
+
                 <div class="form-group">
-                    <label for="inputTopicTitle">Topic Title</label>
+                    {{Form::label('topic', 'Topic')}}
                     <div class="tt-value-wrapper">
-                        <input type="text" name="name" class="form-control" id="inputTopicTitle" placeholder="Subject of your topic">
-                        <span class="tt-value-input">99</span>
+                        {{Form::text('topic', null, ['class'=>'form-control', 'placeholder'=>'Subject of your topic'])}}
+                        {{--<span class="tt-value-input">99</span>--}}
                     </div>
                     <div class="tt-note">Describe your topic well, while keeping the subject as short as possible.</div>
                 </div>
 
 
                 <div class="pt-editor">
-                    <h6 class="pt-title">Topic Body</h6>
-                    <div class="pt-row">
-                        <div class="col-left">
-                            <ul class="pt-edit-btn">
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-quote"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-bold"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-italic"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-share_topic"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-blockquote"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-performatted"></use>
-                                        </svg>
-                                    </button></li>
-                                <li class="hr"></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-upload_files"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-bullet_list"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-heading"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-horizontal_line"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-emoticon"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-settings"></use>
-                                        </svg>
-                                    </button></li>
-                                <li><button type="button" class="btn-icon">
-                                        <svg class="tt-icon">
-                                            <use xlink:href="#icon-color_picker"></use>
-                                        </svg>
-                                    </button></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h6 class="pt-title">Body</h6>
                     <div class="form-group">
-                        <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                        {{Form::textarea('description', null, ['class'=>'form-control', 'placeholder'=>'Let\'s get started'])}}
                     </div>
+
+
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="inputTopicTitle">Category</label>
-                                <select class="form-control">
-                                    <option value="Select">Select</option>
-                                    <option value="Value 01">Value 01</option>
-                                    <option value="Value 02">Value 02</option>
-                                </select>
+                                {{Form::label('category_id', 'Category')}}
+                                {{Form::select('category_id', [''=>'Select Category'] + $categories, null, ['class'=>'form-control'])}}
                             </div>
                         </div>
+
+
                         <div class="col-md-8">
                             <div class="form-group">
-                                <label for="inputTopicTags">Tags</label>
-                                <input type="text" name="name" class="form-control" id="inputTopicTags" placeholder="Use comma to separate tags">
+                                {{Form::label('tags', 'Tags')}}
+                                {{ Form::text('tags', null, ['class'=>'form-control', 'placeholder'=>'Use Comma Separated Tags']) }}
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col-auto ml-md-auto">
-                            <a href="#" class="btn btn-secondary btn-width-lg">Create Post</a>
+                            {{ Form::submit('Create Post', ['class'=>'btn btn-secondary btn-width-lg']) }}
                         </div>
                     </div>
                 </div>
-            </form>
+        {{Form::close()}}
         </div>
         <div class="tt-topic-list tt-offset-top-30">
             <div class="tt-list-search">

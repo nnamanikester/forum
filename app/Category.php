@@ -16,7 +16,6 @@ class Category extends Model
 
     ];
 
-
     public function views() {
 
         return $this->hasMany('App\CategoryView');

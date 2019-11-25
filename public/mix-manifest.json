@@ -2,5 +2,9 @@
     "/js/admin.js": "/js/admin.js",
     "/js/libs.js": "/js/libs.js",
     "/css/libs.css": "/css/libs.css",
-    "/css/admin.css": "/css/admin.css"
+    "/css/admin.css": "/css/admin.css",
+    "/tinymce/jquery.tinymce.js": "/tinymce/jquery.tinymce.js",
+    "/tinymce/jquery.tinymce.min.js": "/tinymce/jquery.tinymce.min.js",
+    "/tinymce/tinymce.js": "/tinymce/tinymce.js",
+    "/tinymce/tinymce.min.js": "/tinymce/tinymce.min.js"
 }

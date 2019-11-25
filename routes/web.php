@@ -18,8 +18,8 @@ Route::get('/categories', 'FrontEndController@categories')->name('fe.categories'
 Route::get('/login', 'FrontEndController@login')->name('fe.login');
 Route::get('/register', 'FrontEndController@register')->name('fe.register');
 Route::get('/page/{name}', 'FrontEndController@pages')->name('fe.page');
-Route::get('/category', 'FrontEndController@category')->name('fe.category');
-Route::get('/topic', 'FrontEndController@topic')->name('fe.topic');
+Route::get('/category/{id}', 'FrontEndController@category')->name('fe.category');
+Route::get('/topic/{slug}', 'FrontEndController@topic')->name('fe.topic');
 Route::get('/trending', 'FrontEndController@trending')->name('fe.trending');
 
 
@@ -49,6 +49,7 @@ Route::group(['middleware'=> 'admin'], function() {
     Route::get('/admin/approved-threads', 'AdminThreadsController@approved')->name('threads.approved');
     Route::get('/admin/pending-threads', 'AdminThreadsController@pending')->name('threads.pending');
     Route::get('/admin/categories/{id}/threads', 'AdminCategoriesController@threads')->name('categories.threads');
+    Route::get('/admin/media', 'AdminMediaController@index')->name('admin.media');
 
 
 });
@@ -64,8 +65,21 @@ Route::get('/dashboard/compose', 'UserDashboardController@compose')->name('user.
 Route::get('/dashboard/create-topic', 'UserDashboardController@create_topic')->name('user.create_topic');
 
 
+Route::post('dashboard/create-topic/store', 'UserDashboardController@topicstore');
+
 //USER DASHBOARD ROUTES ENDS
 
+
+/*
+ * THE LARAVEL FILEMANAGER BEGINGS HERE
+ */
+
+Route::group(['prefix' => 'admin/media', 'middleware' => ['web', 'auth', 'admin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+
+// LARAVEL FILE MANAGER ENDS HERE
 
 
 Auth::routes();
