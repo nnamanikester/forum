@@ -75,10 +75,10 @@
                         <a class="nav-link" data-toggle="tab" href="#tt-tab-03" role="tab"><span>Replies</span></a>
                     </li>
                     <li class="nav-item tt-hide-xs">
-                        <a class="nav-link" data-toggle="tab" href="#tt-tab-04" role="tab"><span>526 Followers</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#tt-tab-04" role="tab"><span>{{count($followers) > 0 ? count($followers) : 0}} Followers</span></a>
                     </li>
                     <li class="nav-item tt-hide-md">
-                        <a class="nav-link" data-toggle="tab" href="#tt-tab-05" role="tab"><span>489 Following</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#tt-tab-05" role="tab"><span>{{count($followings) > 0 ? count($followings) : 0}} Following</span></a>
                     </li>
                     <li class="nav-item tt-hide-md">
                         <a class="nav-link" data-toggle="tab" href="#tt-tab-06" role="tab"><span>Categories</span></a>
@@ -287,40 +287,51 @@
                         <div class="tt-list-header">
                             <div class="tt-col-name">User</div>
                             <div class="tt-col-value-large hide-mobile">Follow date</div>
-                            <div class="tt-col-value-large hide-mobile">Last Activity</div>
+                            {{--<div class="tt-col-value-large hide-mobile">Last Activity</div>--}}
                             <div class="tt-col-value-large hide-mobile">Threads</div>
                             <div class="tt-col-value-large hide-mobile">Replies</div>
                             <div class="tt-col-value">Level</div>
                         </div>
-                        <div class="tt-item">
-                            <div class="tt-col-merged">
-                                <div class="tt-col-avatar">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-ava-t"></use>
-                                    </svg>
+
+                        @foreach($followers as $follower)
+
+                            @if($follower->user->level)
+                                @if($follower->user->level->name == 'newbie')
+                                    <?php $classs = 'tt-color08'; $levelfaa = 'fa-grin'; ?>
+                                @elseif($follower->user->level->name == 'regular')
+                                    <?php $classs = 'tt-color03'; $levelfaa = 'fa-lemon'; ?>
+                                @elseif($follower->user->level->name == 'master')
+                                    <?php $classs = 'tt-color19'; $levelfaa = 'fa-leaf'; ?>
+                                @else
+                                    <?php $classs = 'badge-secondary'; ?>
+                                @endif
+                            @endif
+
+                            <div class="tt-item">
+                                <div class="tt-col-merged">
+                                    <div class="tt-col-avatar">
+                                        <img width="40" height="40" src="{{$follower->user->photo ? $follower->user->photo->path : '/images/users/default.png'}}" alt="">
+                                    </div>
+                                    <div class="tt-col-description">
+                                        <h6 class="tt-title"><a href="#">{{Str::title($follower->user->name)}}</a></h6>
+                                        <ul>
+                                            <li><a href="#">{{'@'.$follower->user->username}}</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="tt-col-description">
-                                    <h6 class="tt-title"><a href="#">Taylor</a></h6>
-                                    <ul>
-                                        <li><a href="mailto:@tails23">@tails23</a></li>
-                                    </ul>
-                                </div>
+                                <div class="tt-col-value-large hide-mobile">{{$follower->created_at->diffForHumans()}}</div>
+                                {{--<div class="tt-col-value-large hide-mobile tt-color-select">10 hours ago</div>--}}
+                                <div class="tt-col-value-large hide-mobile">{{count($follower->user->threads) > 0 ? count($follower->user->threads) : 0}}</div>
+                                <div class="tt-col-value-large hide-mobile">{{count($follower->user->thread_replies) > 0 ? count($follower->user->thread_replies) : 0}}</div>
+                                <div class="tt-col-value"><span class="{{$classs}} tt-badge"><i class="fa {{$levelfaa}}"></i> {{$follower->user->level->name}}</span></div>
                             </div>
-                            <div class="tt-col-value-large hide-mobile">10/01/2019</div>
-                            <div class="tt-col-value-large hide-mobile tt-color-select">10 hours ago</div>
-                            <div class="tt-col-value-large hide-mobile">0</div>
-                            <div class="tt-col-value-large hide-mobile">6</div>
-                            <div class="tt-col-value"><span class="tt-color16 tt-badge">LVL : 02</span></div>
-                        </div>
+
+                        @endforeach
 
 
                         <div class="tt-row-btn">
                             {{--PAGINATION GOES HERE--}}
-                            <button type="button" class="btn-icon js-topiclist-showmore">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-load_lore_icon"></use>
-                                </svg>
-                            </button>
+                            {{$followers->links()}}
                         </div>
 
                     </div>
@@ -335,40 +346,52 @@
                         <div class="tt-list-header">
                             <div class="tt-col-name">User</div>
                             <div class="tt-col-value-large hide-mobile">Follow date</div>
-                            <div class="tt-col-value-large hide-mobile">Last Activity</div>
                             <div class="tt-col-value-large hide-mobile">Threads</div>
                             <div class="tt-col-value-large hide-mobile">Replies</div>
                             <div class="tt-col-value">Level</div>
                         </div>
-                        <div class="tt-item">
-                            <div class="tt-col-merged">
-                                <div class="tt-col-avatar">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-ava-m"></use>
-                                    </svg>
+
+                        @foreach($followings as $following)
+
+
+                            @if($following->user->level)
+                                @if($following->user->level->name == 'newbie')
+                                    <?php $clas = 'tt-color08'; $levelf = 'fa-grin'; ?>
+                                @elseif($following->user->level->name == 'regular')
+                                    <?php $classs = 'tt-color03'; $levelf = 'fa-lemon'; ?>
+                                @elseif($following->user->level->name == 'master')
+                                    <?php $clas = 'tt-color19'; $levelf = 'fa-leaf'; ?>
+                                @else
+                                    <?php $classs = 'badge-secondary'; ?>
+                                @endif
+                            @endif
+
+
+                            <div class="tt-item">
+                                <div class="tt-col-merged">
+                                    <div class="tt-col-avatar">
+                                        <img width="40" height="40" src="{{$following->user->photo ? $following->user->photo->path : '/images/users/default.png'}}" alt="">
+                                    </div>
+                                    <div class="tt-col-description">
+                                        <h6 class="tt-title"><a href="#">{{Str::title($following->user->name)}}</a></h6>
+                                        <ul>
+                                            <li><a href="#">{{'@'.$following->user->username}}</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="tt-col-description">
-                                    <h6 class="tt-title"><a href="#">Mitchell</a></h6>
-                                    <ul>
-                                        <li><a href="mailto:@mitchell73">@mitchell73</a></li>
-                                    </ul>
-                                </div>
+                                <div class="tt-col-value-large hide-mobile">{{$following->created_at->diffForHumans()}}</div>
+                                {{--<div class="tt-col-value-large hide-mobile tt-color-select">{{$following->created_at->diffForHumans()}}</div>--}}
+                                <div class="tt-col-value-large hide-mobile">{{count($following->user->threads) > 0 ? count($following->user->threads) : 0}}</div>
+                                <div class="tt-col-value-large hide-mobile">{{count($following->user->thread_replies) > 0 ? count($following->user->thread_replies) : 0}}</div>
+                                <div class="tt-col-value"><span class="{{$clas}} tt-badge"><i class="fa {{$levelf}}"></i> {{$following->user->level->name}}</span></div>
                             </div>
-                            <div class="tt-col-value-large hide-mobile">05/01/2019</div>
-                            <div class="tt-col-value-large hide-mobile tt-color-select">1 hours ago</div>
-                            <div class="tt-col-value-large hide-mobile">1</div>
-                            <div class="tt-col-value-large hide-mobile">3</div>
-                            <div class="tt-col-value"><span class="tt-color19 tt-badge">LVL : 33</span></div>
-                        </div>
+
+                        @endforeach
 
 
                         <div class="tt-row-btn">
                             {{--PAGINATION GOES HERE--}}
-                            <button type="button" class="btn-icon js-topiclist-showmore">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-load_lore_icon"></use>
-                                </svg>
-                            </button>
+                            {{$followings->links()}}
                         </div>
 
 
@@ -390,7 +413,7 @@
                                         <div class="tt-item">
                                             <div class="tt-item-header">
                                                 <ul class="tt-list-badge">
-                                                    <li><a href="{{route('fe.category_threads', $category->id)}}"><span class="tt-color01 tt-badge">{{Str::title($category->name)}}</span></a></li>
+                                                    <li><a href="{{route('fe.category', $category->id)}}"><span class="tt-color01 tt-badge">{{Str::title($category->name)}}</span></a></li>
                                                 </ul>
                                                 <h6 class="tt-title"><a href="#">Threads - {{count($category->threads) > 0 ? count($category->threads) : 0}}</a></h6>
                                             </div>
@@ -421,11 +444,7 @@
                                 <div class="col-12">
                                     {{--PAGINATION GOES HERE--}}
                                     <div class="tt-row-btn">
-                                        <button type="button" class="btn-icon js-topiclist-showmore">
-                                            <svg class="tt-icon">
-                                                <use xlink:href="#icon-load_lore_icon"></use>
-                                            </svg>
-                                        </button>
+                                        {{$categories->links()}}
                                     </div>
                                 </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Thread;
+use App\ThreadReply;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -21,8 +22,6 @@ class FrontEndController extends Controller
     public function home() {
 
         $count = 1;
-
-        $count++;
 
         $threads = Thread::orderBy('id', 'desc')->paginate(15);
 
@@ -86,7 +85,9 @@ class FrontEndController extends Controller
 
     public function trending() {
 
-        return view('front_end.trending');
+        $threads = Thread::all();
+
+        return view('front_end.trending', compact('threads'));
 
     }
 

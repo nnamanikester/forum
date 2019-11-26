@@ -129,10 +129,12 @@
                     <div class="tt-col-value hide-mobile">{{$thread->created_at ? $thread->created_at->diffForHumans() : ''}}</div>
                 </div>
 
+                <?php $count++; ?>
+
                 @if($count === (count($threads) / 2))
 
                     @if(!(Auth::user()))
-                        {{--LOGIN AND SIGNUP ADVERT--}}
+                        {{--LOGIN AND SIGNUP ADVERT STARTS--}}
 
                         <div class="tt-item tt-item-popup">
                             <div class="tt-col-avatar">
@@ -144,14 +146,16 @@
                                 Looks like you are new here. Register for free, learn and contribute.
                             </div>
                             <div class="tt-col-btn">
-                                <a href="{{route('fe.login')}}" type="button" class="btn btn-primary">Log in</a>
-                                <a href="{{route('fe.register')}}" type="button" class="btn btn-secondary">Sign up</a>
+                                <a href="{{route('login')}}" type="button" class="btn btn-primary">Log in</a>
+                                <a href="{{route('register')}}" type="button" class="btn btn-secondary">Sign up</a>
                             </div>
                         </div>
 
-                        {{--LOGIN AND SIGNUP ADVERT--}}
+                        {{--LOGIN AND SIGNUP ADVERT ENDS--}}
 
                     @endif
+
+
 
                 @endif
 

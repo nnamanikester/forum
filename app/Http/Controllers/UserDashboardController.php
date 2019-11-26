@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Follower;
+use App\Following;
 use App\Tag;
 use App\Thread;
 use App\User;
@@ -27,9 +29,13 @@ class UserDashboardController extends Controller
 
         $threads = Thread::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
 
-        $categories = Category::orderBy('id', 'desc')->paginate(16);
+        $categories = Category::orderBy('id', 'desc')->paginate(10);
 
-        return view('user_dashboard.dashboard', compact('user', 'threads', 'categories'));
+        $followers = Follower::where('follower_id', Auth::user()->id)->paginate(15);
+
+        $followings = Following::where('following_id', Auth::user()->id)->paginate(15);
+
+        return view('user_dashboard.dashboard', compact('user', 'threads', 'categories', 'followers', 'followings'));
 
     }
 

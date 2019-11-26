@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     public function following() {
 
-        return $this->hasMany('App\Follower');
+        return $this->hasMany('App\Following');
 
     }
 

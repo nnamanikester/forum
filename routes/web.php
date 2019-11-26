@@ -15,12 +15,12 @@
 //FRONT END WITHOUT LOGIN ROUTES STARTS
 Route::get('/', 'FrontEndController@home')->name('fe.home');
 Route::get('/categories', 'FrontEndController@categories')->name('fe.categories');
-Route::get('/login', 'FrontEndController@login')->name('fe.login');
-Route::get('/register', 'FrontEndController@register')->name('fe.register');
 Route::get('/page/{name}', 'FrontEndController@pages')->name('fe.page');
 Route::get('/category/{id}', 'FrontEndController@category')->name('fe.category');
 Route::get('/topic/{slug}', 'FrontEndController@topic')->name('fe.topic');
 Route::get('/trending', 'FrontEndController@trending')->name('fe.trending');
+Route::get('/login', 'FrontEndController@login')->name('fe.login');
+Route::get('/register', 'FrontEndController@register')->name('fe.register');
 
 
 //FRONT END WITHOUT LOGIN ROUTES ENDS

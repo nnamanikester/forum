@@ -17,11 +17,11 @@ const mix = require('laravel-mix');
 //
 // ], 'public/js');
 
-mix.js([
-
-    'resources/js/bundle.js'
-
-], 'public/js/libs.js');
+// mix.js([
+//
+//     'resources/js/bundle.js'
+//
+// ], 'public/js/libs.js');
 
 
 mix.js([
@@ -60,6 +60,7 @@ mix.copy('node_modules/tinymce/jquery.tinymce.js', 'public/tinymce/jquery.tinymc
 mix.copy('node_modules/tinymce/jquery.tinymce.min.js', 'public/tinymce/jquery.tinymce.min.js');
 mix.copy('node_modules/tinymce/tinymce.js', 'public/tinymce/tinymce.js');
 mix.copy('node_modules/tinymce/tinymce.min.js', 'public/tinymce/tinymce.min.js');
+mix.copy('resources/js/bundle.js', 'public/js/bundle.js');
 
 
 
