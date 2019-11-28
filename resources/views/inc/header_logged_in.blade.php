@@ -11,7 +11,7 @@
                 <!-- /toggle mobile menu -->
                 <!-- logo -->
                 <div class="tt-logo">
-                    <a href="{{route('fe.home')}}"><img src="images/logo.png" alt=""></a>
+                    <a href="{{route('fe.home')}}"><img src="/images/users/default.png" alt=""></a>
                 </div>
                 <!-- /logo -->
                 <!-- desctop menu -->
@@ -20,11 +20,15 @@
                         <ul>
                             <li><a href="{{route('fe.home')}}"><span>Home</span></a></li>
                             <li><a href="{{route('fe.trending')}}"><span>Trending</span></a></li>
-                            <li><a href="{{route('fe.categories')}}"><span>New</span></a></li>
+                            @if(Auth::user()->role)
+                                @if(Auth::user()->role->name == 'administrator')
+                                    <li><a href="{{route('admin.index')}}"><span>Admin</span></a></li>
+                                @endif
+                            @endif
                             <li>
                                 <a href="#"><span>Pages</span></a>
                                 <ul>
-                                    <li><a href="{{route('user.create_topic')}}">New Topic</a></li>
+                                    <li><a href="{{route('user.lists')}}">All Users</a></li>
                                     <li><a href="{{route('fe.page', 'about')}}">About</a></li>
                                     <li><a href="{{route('fe.page', 'guidelines')}}">Guidelines</a></li>
                                     <li><a href="{{route('fe.page', 'faq')}}">FAQs</a></li>
@@ -94,7 +98,9 @@
                     </a>
                     <a href="{{route('user.dashboard')}}">
                         <div class="tt-avatar-icon tt-size-md">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-ava-a"></use></svg></i>
+                            <i class="tt-icon">
+                                <img style="border-radius: 50%;" width="40" height="40" src="{{Auth::user()->photo ? Auth::user()->photo->path : '/images/users/default.png'}}" alt="">
+                            </i>
                             <strong>{{Str::title(Auth::user()->username)}}</strong>
 
                         </div>

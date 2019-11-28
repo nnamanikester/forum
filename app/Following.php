@@ -21,5 +21,18 @@ class Following extends Model
 
     }
 
+    public function followers() {
+
+        return $this->hasMany('App\Follower', 'follower_id', 'user_id');
+
+    }
+
+
+    public function follower() {
+
+        return $this->belongsTo('App\Follower', 'user_id', 'follower_id');
+
+    }
+
 
 }

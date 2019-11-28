@@ -22,4 +22,11 @@ class Follower extends Model
     }
 
 
+    public function following() {
+
+        return $this->hasOne('App\Following', 'user_id', 'follower_id');
+
+    }
+
+
 }

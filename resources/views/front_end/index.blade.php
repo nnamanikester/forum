@@ -47,7 +47,7 @@
 
                 <div class="tt-item tt-itemselect">
                     <div class="tt-col-avatar">
-                            <img width="40" height="40" src="{{$featured->user->photo ? $featured->user->photo->path : '/images/users/default.png'}}" alt="">
+                            <img width="40" height="40" style="border-radius: 50%;" src="{{$featured->user->photo ? $featured->user->photo->path : '/images/users/default.png'}}" alt="">
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title"><a href="{{route('fe.topic', $featured->slug)}}">
@@ -95,7 +95,7 @@
 
                 <div class="tt-item">
                     <div class="tt-col-avatar">
-                        <img width="40" height="40" src="{{$thread->user->photo ? $thread->user->photo->path : '/images/users/default.png'}}" alt="">
+                        <img style="border-radius: 50%;" width="40" height="40" src="{{$thread->user->photo ? $thread->user->photo->path : '/images/users/default.png'}}" alt="">
                     </div>
                     <div class="tt-col-description">
                         <h6 class="tt-title"><a href="{{route('fe.topic', $thread->slug ?? '')}}">

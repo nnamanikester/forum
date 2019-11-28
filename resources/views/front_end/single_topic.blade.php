@@ -72,7 +72,7 @@
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
                         </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                        <a href="#reply" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                         </a>
                     </div>
@@ -154,73 +154,88 @@
 
             {{--REPLIES START HERE--}}
 
-            <div class="tt-item">
-                <div class="tt-single-topic">
-                    <div class="tt-item-header pt-noborder">
-                        <div class="tt-item-info info-top">
-                            <div class="tt-avatar-icon">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-ava-v"></use></svg></i>
-                            </div>
-                            <div class="tt-avatar-title">
-                                <a href="#">vickey03</a>
-                            </div>
-                            <a href="#" class="tt-info-time">
-                                <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                            </a>
-                        </div>
-                    </div>
-                    <div class="tt-item-description">
-                        Finally!<br>
-                        Are there any special recommendations for design or an updated guide that includes new preview sizes, including retina displays?
+            @if(count($thread->replies) > 0)
+                @foreach($thread->replies as $reply)
 
-
-
-                        {{--REPLIES TO A REPLY--}}
-                        <div class="topic-inner-list">
-                            <div class="topic-inner">
-                                <div class="topic-inner-title">
-                                    <div class="topic-inner-avatar">
-                                        <i class="tt-icon"><svg><use xlink:href="#icon-ava-s"></use></svg></i>
+                    <div class="tt-item">
+                        <div class="tt-single-topic">
+                            <div class="tt-item-header pt-noborder">
+                                <div class="tt-item-info info-top">
+                                    <div class="tt-avatar-icon">
+                                        <img style="border-radius: 50%;" width="40" height="40" src="{{$reply->user->photo ? $reply->user->photo->path : '/images/users/default.png'}}" alt="">
                                     </div>
-                                    <div class="topic-inner-title"><a href="#">summit92</a></div>
-                                </div>
-                                <div class="topic-inner-description">
-                                    Finally!<br>
-                                    Are there any special recommendations for design or an updated guide that includes new preview sizes, including retina displays?
+                                    <div class="tt-avatar-title">
+                                        <a href="{{ route('user.profile', $reply->user->username) }}">{{ Str::title($reply->user->username) }}</a>
+                                    </div>
+                                    <a href="#" class="tt-info-time">
+                                        <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>{{ $reply->created_at->toFormattedDateString() }}
+                                    </a>
                                 </div>
                             </div>
+                            <div class="tt-item-description">
+                                {!! $reply->body !!}
+
+
+                                {{--REPLIES TO A REPLY START HERE--}}
+                                @if(count($reply->replies) > 0)
+                                    @foreach($reply->replies->paginate(2) as $level_reply)
+                                        <div class="topic-inner-list">
+                                            <div class="topic-inner">
+                                                <div class="topic-inner-title">
+                                                    <div class="topic-inner-avatar">
+                                                        <img style="border-radius: 50%;" width="40" height="40" src="{{$level_reply->user->photo ? $level_reply->user->photo->path : '/images/users/default.png'}}" alt="">
+                                                    </div>
+                                                    <div class="topic-inner-title"><a href="{{ route('user.profile', $level_reply->username) }}">{{ Str::title($level_reply->user->username) }}</a></div>
+                                                </div>
+                                                <div class="topic-inner-description">
+                                                    {!! $level_reply->body !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                        <div class="tt-row-btn">
+                                            {{--PAGINATON WILL GO HERE--}}
+                                            {{ $reply->replies->links() }}
+                                        </div>
+                                @endif
+
+                                {{--REPLIES TO A REPLY END HERE--}}
+
+                            </div>
+
+
+
+                            <div class="tt-item-info info-bottom">
+                                <a href="#" class="tt-icon-btn">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
+                                    <span class="tt-text">{{ count($reply->likes) > 0 ? count($reply->likes) : 0 }}</span>
+                                </a>
+                                <a href="#" class="tt-icon-btn">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+                                    <span class="tt-text">{{ count($reply->dislikes) > 0 ? count($reply->dislikes) : 0 }}</span>
+                                </a>
+                                <a href="#" class="tt-icon-btn">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
+                                    <span class="tt-text">{{ count($reply->favourites) > 0 ? count($reply->favourites) : 0 }}</span>
+                                </a>
+                                <div class="col-separator"></div>
+                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
+                                </a>
+                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
+                                </a>
+                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                    <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
+                                </a>
+                            </div>
                         </div>
-
                     </div>
 
-
-
-                    <div class="tt-item-info info-bottom">
-                        <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span class="tt-text">671</span>
-                        </a>
-                        <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                            <span class="tt-text">39</span>
-                        </a>
-                        <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                            <span class="tt-text">12</span>
-                        </a>
-                        <div class="col-separator"></div>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
-                        </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                        </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
+            {{--REPLIES ENDS HERE--}}
 
 
 
@@ -269,8 +284,8 @@
         </div>
 
 
+        @if(!(Auth::user()))
 
-        <div class="tt-topic-list">
             <div class="tt-item tt-item-popup">
                 <div class="tt-col-avatar">
                     <svg class="tt-icon">
@@ -278,128 +293,56 @@
                     </svg>
                 </div>
                 <div class="tt-col-message">
-                    Looks like you are new here. Register for free, learn and contribute.
+                    Looks like you are new here. Login or Register to reply threads.
                 </div>
                 <div class="tt-col-btn">
-                    <button type="button" class="btn btn-primary">Log in</button>
-                    <button type="button" class="btn btn-secondary">Sign up</button>
-                    <button type="button" class="btn-icon">
-                        <svg class="tt-icon">
-                            <use xlink:href="#icon-cancel"></use>
-                        </svg>
-                    </button>
+                    <a href="{{route('login')}}" type="button" class="btn btn-primary">Log in</a>
+                    <a href="{{route('register')}}" type="button" class="btn btn-secondary">Sign up</a>
                 </div>
             </div>
-        </div>
+
+        @else
 
 
 
+            <div class="tt-wrapper-inner" id="reply">
+                {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReply', $thread->id]]) }}
+                <div class="pt-editor form-default">
+                    <h6 class="pt-title" id="reply">Post Your Reply</h6>
 
-        <div class="tt-wrapper-inner">
-            <div class="pt-editor form-default">
-                <h6 class="pt-title">Post Your Reply</h6>
-                <div class="pt-row">
-                    <div class="col-left">
-                        <ul class="pt-edit-btn">
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-quote"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-bold"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-italic"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-share_topic"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-blockquote"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-performatted"></use>
-                                    </svg>
-                                </button></li>
-                            <li class="hr"></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-upload_files"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-bullet_list"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-heading"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-horizontal_line"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-emoticon"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-settings"></use>
-                                    </svg>
-                                </button></li>
-                            <li><button type="button" class="btn-icon">
-                                    <svg class="tt-icon">
-                                        <use xlink:href="#icon-color_picker"></use>
-                                    </svg>
-                                </button></li>
-                        </ul>
+                    {{ Form::hidden('thread_id', $thread->id) }}
+                    {{ Form::hidden('user_id', Auth::user()->id) }}
+                    <div class="form-group">
+                        {{ Form::textarea('body', null, ['class'=>'form-control']) }}
                     </div>
-                    <div class="col-right tt-hidden-mobile">
-                        <a href="#" class="btn btn-primary">Preview</a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" class="form-control" rows="5" placeholder="Lets get started"></textarea>
-                </div>
-                <div class="pt-row">
-                    <div class="col-auto">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="checkBox21" name="checkbox" checked="">
-                            <label for="checkBox21">
-                                <span class="check"></span>
-                                <span class="box"></span>
-                                <span class="tt-text">Subscribe to this topic.</span>
-                            </label>
+                    <div class="pt-row">
+                        <div class="col-auto">
+                            <div class="checkbox-group">
+                                {{--<input type="checkbox" id="checkBox21" name="checkbox" checked="">--}}
+                                <label for="checkBox21">
+                                    <span class="check"></span>
+                                    <span class="box"></span>
+                                    <span class="tt-text">Subscribe to this topic.</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            {{ Form::submit('Reply', ['class'=>'btn btn-secondary btn-width-lg']) }}
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="#" class="btn btn-secondary btn-width-lg">Reply</a>
-                    </div>
                 </div>
+
+                {{ Form::close() }}
             </div>
-        </div>
+
+        @endif
 
 
 
 
         <div class="tt-topic-list tt-ofset-30">
             <div class="tt-list-search">
-                <div class="tt-title">Suggested Topics</div>
+                <div class="tt-title">Related Topics</div>
                 <!-- tt-search -->
                 <div class="tt-search">
                     <form class="search-wrapper">
@@ -432,43 +375,49 @@
 
 
 
-            <div class="tt-item">
-                <div class="tt-col-avatar">
-                    <svg class="tt-icon">
-                        <use xlink:href="#icon-ava-t"></use>
-                    </svg>
-                </div>
-                <div class="tt-col-description">
-                    <h6 class="tt-title"><a href="#">
-                            Cannot customize my intro
-                        </a></h6>
-                    <div class="row align-items-center no-gutters">
-                        <div class="col-11">
-                            <ul class="tt-list-badge">
-                                <li class="show-mobile"><a href="#"><span class="tt-color07 tt-badge">video games</span></a></li>
-                                <li><a href="#"><span class="tt-badge">videohive</span></a></li>
-                                <li><a href="#"><span class="tt-badge">photodune</span></a></li>
-                            </ul>
+            @if(count($relateds) > 0)
+                @foreach($relateds as $related)
+                    <div class="tt-item">
+                        <div class="tt-col-avatar">
+                            <img style="border-radius: 50%;" width="40" height="40" src="{{$related->user->photo ? $related->user->photo->path : '/images/users/default.png'}}" alt="">
                         </div>
-                        <div class="col-1 ml-auto show-mobile">
-                            <div class="tt-value">2d</div>
+                        <div class="tt-col-description">
+                            <h6 class="tt-title"><a href="{{ route('fe.topic', $related->slug) }}">
+                                    {{ Str::title($related->topic) }}
+                                </a></h6>
+                            <div class="row align-items-center no-gutters">
+                                <div class="col-11">
+                                    <ul class="tt-list-badge">
+                                        <li class="show-mobile"><a href="{{route('fe.category', $related->category->id ?? '')}}"><span class="tt-color07 tt-badge">{{$related->category ? Str::title($related->category->name) : 'UnCategorized'}}</span></a></li>
+                                        @if(count($related->tags) > 0)
+                                            <?php $cnt = 1; ?>
+                                            @foreach($thread->tags as $tag)
+                                                <li><a href="#"><span class="tt-badge">{{$tag->name}}</span></a></li>
+                                                @if($cnt === 2)
+                                                    @break
+                                                @endif
+                                                <?php $cnt++ ?>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div class="col-1 ml-auto show-mobile">
+                                    <div class="tt-value">{{$related->created_at ? $related->created_at->diffForHumans() : ''}}</div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="tt-col-category"><span class="tt-color07 tt-badge">{{$related->category ? Str::title($related->category->name) : 'UnCategorized'}}</span></div>
+                        <div class="tt-col-value hide-mobile">{{count($related->likes) > 0 ? count($related->likes) : 0}}</div>
+                        <div class="tt-col-value tt-color-select  hide-mobile">{{count($related->replies) > 0 ? count($related->replies) : 0}}</div>
+                        <div class="tt-col-value  hide-mobile">{{count($related->views) > 0 ? count($related->views) : 0}}</div>
+                        <div class="tt-col-value hide-mobile">{{$related->created_at ? $related->created_at->diffForHumans() : ''}}</div>
                     </div>
-                </div>
-                <div class="tt-col-category"><span class="tt-color07 tt-badge">video games</span></div>
-                <div class="tt-col-value hide-mobile">364</div>
-                <div class="tt-col-value tt-color-select  hide-mobile">36</div>
-                <div class="tt-col-value  hide-mobile">982</div>
-                <div class="tt-col-value hide-mobile">2d</div>
-            </div>
+                @endforeach
+            @endif
 
             <div class="tt-row-btn">
                 {{--PAGINATON WILL GO HERE--}}
-                <button type="button" class="btn-icon js-topiclist-showmore">
-                    <svg class="tt-icon">
-                        <use xlink:href="#icon-load_lore_icon"></use>
-                    </svg>
-                </button>
+                {{ $relateds->links() }}
             </div>
         </div>
 

@@ -79,7 +79,9 @@ class FrontEndController extends Controller
 
         $thread = Thread::where('slug', $slug)->first();
 
-        return view('front_end.single_topic', compact('thread'));
+        $relateds = Thread::where('category_id', $thread->category_id)->orderBy('id', 'desc')->paginate(5);
+
+        return view('front_end.single_topic', compact('thread', 'relateds'));
 
     }
 

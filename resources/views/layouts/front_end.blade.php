@@ -77,7 +77,7 @@
 <script src="{{asset('js/bundle.js')}}"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{asset('js/sweetalert.js')}}"></script>
 <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
 @yield('scripts')
 

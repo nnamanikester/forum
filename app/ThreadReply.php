@@ -32,25 +32,25 @@ class ThreadReply extends Model
 
     public function dislikes() {
 
-        return $this->hasMany('App\ThreadDislike');
+        return $this->hasMany('App\ThreadReplyDislike');
 
     }
 
     public function likes() {
 
-        return $this->hasMany('App\ThreadLike');
+        return $this->hasMany('App\ThreadReplyLike');
 
     }
 
     public function favourites() {
 
-        return $this->hasMany('App\ThreadFavourite');
+        return $this->hasMany('App\ThreadReplyFavourite');
 
     }
 
     public function flags() {
 
-        return $this->hasMany('App\ThreadFlag');
+        return $this->hasMany('App\ThreadReplyFlag');
 
     }
 
