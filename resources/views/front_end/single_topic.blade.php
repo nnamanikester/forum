@@ -54,24 +54,63 @@
                     </div>
                     <div class="tt-item-info info-bottom">
                         <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                            <span class="tt-text">{{ count($thread->likes) > 0 ? count($thread->likes) : 0 }}</span>
+                            {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadLikeUnlike', $thread->id]]) }}
+                                {{ Form::hidden('user_id', Auth::user()->id) }}
+                                @if($liked && ($liked->user_id === Auth::user()->id))
+                                    <button style="border: none; background: none; border-radius: 40%; background-color: #3ebafa;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i></button>
+                                @else
+                                    <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i></button>
+                                @endif
+                                <span class="tt-text">{{ count($thread->likes) > 0 ? count($thread->likes) : 0 }}</span>
+                            {{ Form::close() }}
+
                         </a>
                         <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+
+                            {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadDislikeUndislike', $thread->id]]) }}
+                                {{ Form::hidden('user_id', Auth::user()->id) }}
+                                @if($disliked && ($disliked->user_id === Auth::user()->id))
+                                    <button style="border: none; background: none; border-radius: 40%; background-color: #3ebafa;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i></button>
+                                @else
+                                    <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i></button>
+                                @endif
                             <span class="tt-text">{{ count($thread->dislikes) > 0 ? count($thread->dislikes) : 0 }}</span>
+                            {{ Form::close() }}
+
                         </a>
                         <a href="#" class="tt-icon-btn">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                            <span class="tt-text">{{ count($thread->favourites) > 0 ? count($thread->favourites) : 0 }}</span>
+
+                            {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadFavouriteUnfavourite', $thread->id]]) }}
+                                {{ Form::hidden('user_id', Auth::user()->id) }}
+                                @if($favourited && ($favourited->user_id === Auth::user()->id))
+                                    <button style="border: none; background: none; border-radius: 100%; background-color: #ff0000;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i></button>
+                                @else
+                                    <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i></button>
+                                @endif
+                                <span class="tt-text">{{ count($thread->favourites) > 0 ? count($thread->favourites) : 0 }}</span>
+                            {{ Form::close() }}
+
                         </a>
                         <div class="col-separator"></div>
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                         </a>
-                        <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                            <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                        </a>
+
+                        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+                            {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadFlag', $thread->id]]) }}
+                                {{ Form::hidden('user_id', Auth::user()->id) }}
+                                @if($flag)
+                                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                        <button class="tt-icon" style="border: none; background: none; border-radius: 50%; background-color: #ff0000;" type="submit"><i class="tt-flag"><svg><use xlink:href="#icon-flag"></use></svg></i></button>
+                                    </a>
+                                @else
+                                    <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                        <button class="tt-icon" style="border: none; background: none;" type="submit"><i class="tt-flag"><svg><use xlink:href="#icon-flag"></use></svg></i></button>
+                                    </a>
+                                @endif
+                            {{ Form::close() }}
+                        @endif
+
                         <a href="#reply" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                         </a>
@@ -104,6 +143,12 @@
                             <a href="#" class="tt-icon-btn tt-position-bottom">
                                 <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
                                 <span class="tt-text">{{ count($thread->likes) > 0 ? count($thread->likes) : 0 }}</span>
+                            </a>
+                        </div>
+                        <div class="tt-item">
+                            <a href="#" class="tt-icon-btn tt-position-bottom">
+                                <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
+                                <span class="tt-text">{{ count($thread->dislikes) > 0 ? count($thread->dislikes) : 0 }}</span>
                             </a>
                         </div>
                         <div class="tt-item">
@@ -154,8 +199,17 @@
 
             {{--REPLIES START HERE--}}
 
-            @if(count($thread->replies) > 0)
-                @foreach($thread->replies as $reply)
+            @if(count($replies) > 0)
+                @foreach($replies as $reply)
+
+                    <?php
+
+                        $reliked = $reply->likes->first();
+                        $redisliked = $reply->dislikes->first();
+                        $refavourited = $reply->favourites->first();
+                        $reflag = $reply->flags->first();
+
+                    ?>
 
                     <div class="tt-item">
                         <div class="tt-single-topic">
@@ -208,24 +262,63 @@
 
                             <div class="tt-item-info info-bottom">
                                 <a href="#" class="tt-icon-btn">
-                                    <i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i>
-                                    <span class="tt-text">{{ count($reply->likes) > 0 ? count($reply->likes) : 0 }}</span>
+                                    {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReplyLikeUnLike', $reply->id]]) }}
+                                        {{ Form::hidden('user_id', Auth::user()->id) }}
+                                        @if($reliked && ($reliked->user_id === Auth::user()->id))
+                                            <button style="border: none; background: none; border-radius: 40%; background-color: #3ebafa;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i></button>
+                                        @else
+                                            <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i></button>
+                                        @endif
+                                        <span class="tt-text">{{ count($reply->likes) > 0 ? count($reply->likes) : 0 }}</span>
+                                    {{ Form::close() }}
+
                                 </a>
                                 <a href="#" class="tt-icon-btn">
-                                    <i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i>
-                                    <span class="tt-text">{{ count($reply->dislikes) > 0 ? count($reply->dislikes) : 0 }}</span>
+
+                                    {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReplyDislikeUndislike', $reply->id]]) }}
+                                        {{ Form::hidden('user_id', Auth::user()->id) }}
+                                        @if($redisliked && ($redisliked->user_id === Auth::user()->id))
+                                            <button style="border: none; background: none; border-radius: 40%; background-color: #3ebafa;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i></button>
+                                        @else
+                                            <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i></button>
+                                        @endif
+                                        <span class="tt-text">{{ count($reply->dislikes) > 0 ? count($reply->dislikes) : 0 }}</span>
+                                    {{ Form::close() }}
+
                                 </a>
                                 <a href="#" class="tt-icon-btn">
-                                    <i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i>
-                                    <span class="tt-text">{{ count($reply->favourites) > 0 ? count($reply->favourites) : 0 }}</span>
+
+                                    {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReplyFavouriteUnfavourite', $reply->id]]) }}
+                                        {{ Form::hidden('user_id', Auth::user()->id) }}
+                                        @if($refavourited && ($refavourited->user_id === Auth::user()->id))
+                                            <button style="border: none; background: none; border-radius: 100%; background-color: #ff0000;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i></button>
+                                        @else
+                                            <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i></button>
+                                        @endif
+                                        <span class="tt-text">{{ count($reply->favourites) > 0 ? count($reply->favourites) : 0 }}</span>
+                                    {{ Form::close() }}
+
                                 </a>
                                 <div class="col-separator"></div>
                                 <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                                     <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                                 </a>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon"><svg><use xlink:href="#icon-flag"></use></svg></i>
-                                </a>
+
+                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+                                    {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReplyFlag', $reply->id]]) }}
+                                        {{ Form::hidden('user_id', Auth::user()->id) }}
+                                        @if($reflag)
+                                            <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                                <button class="tt-icon" style="border: none; background: none; border-radius: 50%; background-color: #ff0000;" type="submit"><i class="tt-flag"><svg><use xlink:href="#icon-flag"></use></svg></i></button>
+                                            </a>
+                                        @else
+                                            <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                                <button class="tt-icon" style="border: none; background: none;" type="submit"><i class="tt-flag"><svg><use xlink:href="#icon-flag"></use></svg></i></button>
+                                            </a>
+                                        @endif
+                                    {{ Form::close() }}
+                                @endif
+
                                 <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                                     <i class="tt-icon"><svg><use xlink:href="#icon-reply"></use></svg></i>
                                 </a>

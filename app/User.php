@@ -172,6 +172,13 @@ class User extends Authenticatable
     }
 
 
+    public function replies() {
+
+        return $this->hasMany('App\ThreadReply');
+
+    }
+
+
 
 
     //Function Checks

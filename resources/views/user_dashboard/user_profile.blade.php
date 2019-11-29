@@ -45,7 +45,7 @@
                 <div class="tt-col-btn" >
                     <div class="tt-list-btn">
                         <a href="{{route('user.compose')}}" class="btn btn-primary">Message</a>
-                        @if($followed && ($followed->user_id === $user->id))
+                        @if($followed && ($followed->user_id == $user->id))
                             {{ Form::open(['method'=>'DELETE', 'action'=>['UserDashboardController@unfollow', $followed->id]]) }}
                                 {{ Form::submit('UnFollow', ['class'=>'btn btn-primary']) }}
                             {{ Form::close() }}
@@ -76,10 +76,10 @@
                 <ul class="nav nav-tabs pt-tabs-default" role="tablist">
 
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#tt-tab-02" role="tab"><span>Threads</span></a>
+                        <a class="nav-link active" data-toggle="tab" href="#tt-tab-02" role="tab"><span>{{count($threads) > 0 ? count($threads) : 0}} Threads</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tt-tab-03" role="tab"><span>Replies</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#tt-tab-03" role="tab"><span>{{count($replies) > 0 ? count($replies) : 0}} Replies</span></a>
                     </li>
                     <li class="nav-item tt-hide-xs">
                         <a class="nav-link" data-toggle="tab" href="#tt-tab-04" role="tab"><span>{{count($followers) > 0 ? count($followers) : 0}} Followers</span></a>
@@ -207,7 +207,7 @@
                                         </div>
                                     </div>
                                     <div class="tt-col-category"><a href="#"><span class="tt-color06 tt-badge">{{$reply->thread->category ? Str::title($reply->thread->category->name) : 'UnCategorized'}}</span></a></div>
-                                    <div class="tt-col-value-large hide-mobile">{{$reply->created_at->diffForHummans()}}</div>
+                                    <div class="tt-col-value-large hide-mobile">{{$reply->created_at->diffForHumans()}}</div>
                                 </div>
                             @endforeach
                         @else
@@ -233,7 +233,6 @@
                         <div class="tt-list-header">
                             <div class="tt-col-name">User</div>
                             <div class="tt-col-value-large hide-mobile">Follow date</div>
-                            <div class="tt-col-value"></div>
                             {{--<div class="tt-col-value-large hide-mobile">Last Activity</div>--}}
                             <div class="tt-col-value-large hide-mobile">Threads</div>
                             <div class="tt-col-value-large hide-mobile">Replies</div>
@@ -260,23 +259,14 @@
                                         <img width="40" height="40" src="{{$follower->user->photo ? $follower->user->photo->path : '/images/users/default.png'}}" alt="">
                                     </div>
                                     <div class="tt-col-description">
-                                        <h6 class="tt-title"><a href="#">{{Str::title($follower->user->name)}}</a></h6>
+                                        <h6 class="tt-title"><a href="{{ route('user.profile', $follower->user->username) }}">{{Str::title($follower->user->name)}}</a></h6>
                                         <ul>
-                                            <li><a href="#">{{'@'.$follower->user->username}}</a></li>
+                                            <li><a href="{{ route('user.profile', $follower->user->username) }}">{{'@'.$follower->user->username}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="tt-col-value-large hide-mobile">{{$follower->created_at->diffForHumans()}}</div>
                                 {{--<div class="tt-col-value-large hide-mobile tt-color-select">10 hours ago</div>--}}
-                                @if($follower->user_id !== $follower->following->following_id)
-                                    {{ Form::open(['method'=>'DELETE', 'action'=>['UserDashboardController@unfollow', $follower->following->id ?? '']]) }}
-                                    {{ Form::submit('Unfollow', ['class'=>'tt-badge btn-secondary']) }}
-                                    {{ Form::close() }}
-                                @else
-                                    {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@follow', $follower->user->id ?? '']]) }}
-                                    {{ Form::submit('Follow Back', ['class'=>'tt-badge tt-color05', 'style'=>'color: #fff;']) }}
-                                    {{ Form::close() }}
-                                @endif
                                 <div class="tt-col-value-large hide-mobile">{{count($follower->user->threads) > 0 ? count($follower->user->threads) : 0}}</div>
                                 <div class="tt-col-value-large hide-mobile">{{count($follower->user->thread_replies) > 0 ? count($follower->user->thread_replies) : 0}}</div>
                                 <div class="tt-col-value hide-mobile"><span class="{{$classs}} tt-badge"><i class="fa {{$levelfaa}}"></i> {{$follower->user->level->name}}</span></div>
@@ -330,9 +320,9 @@
                                         <img width="40" height="40" src="{{$following->user->photo ? $following->user->photo->path : '/images/users/default.png'}}" alt="">
                                     </div>
                                     <div class="tt-col-description">
-                                        <h6 class="tt-title"><a href="#">{{Str::title($following->user->name)}}</a></h6>
+                                        <h6 class="tt-title"><a href="{{ route('user.profile', $following->user->username) }}">{{Str::title($following->user->name)}}</a></h6>
                                         <ul>
-                                            <li><a href="#">{{'@'.$following->user->username}}</a></li>
+                                            <li><a href="{{ route('user.profile', $following->user->username) }}">{{'@'.$following->user->username}}</a></li>
                                         </ul>
                                     </div>
                                 </div>

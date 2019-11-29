@@ -72,6 +72,14 @@ Route::post('dashboard/create-topic/store', 'UserDashboardController@topicstore'
 Route::patch('dashboard/profile/{id}/update', 'UserDashboardController@profileUpdate');
 Route::delete('dashboard/{id}/unfollow', 'UserDashboardController@unfollow');
 Route::post('dashboard/{id}/follow', 'UserDashboardController@follow');
+Route::post('dashboard/{id}/likeunlike', 'UserDashboardController@threadLikeUnlike');
+Route::post('dashboard/{id}/favouriteunfavourite', 'UserDashboardController@threadFavouriteUnfavourite');
+Route::post('dashboard/{id}/dislikeundislike', 'UserDashboardController@threadDislikeUndislike');
+Route::post('dashboard/{id}/replydislikeundislike', 'UserDashboardController@threadReplyDislikeUndislike');
+Route::post('dashboard/{id}/replyfavouriteunfavourite', 'UserDashboardController@threadReplyFavouriteUnfavourite');
+Route::post('dashboard/{id}/replylikeunlike', 'UserDashboardController@threadReplyLikeUnLike');
+Route::post('dashboard/{id}/threadflag', 'UserDashboardController@threadFlag');
+Route::post('dashboard/{id}/threadreplyflag', 'UserDashboardController@threadReplyFlag');
 
 //USER DASHBOARD ROUTES ENDS
 

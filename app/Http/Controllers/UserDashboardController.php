@@ -7,11 +7,20 @@ use App\Follower;
 use App\Following;
 use App\Tag;
 use App\Thread;
+use App\ThreadDislike;
+use App\ThreadFavourite;
+use App\ThreadFlag;
+use App\ThreadLike;
 use App\ThreadReply;
+use App\ThreadReplyDislike;
+use App\ThreadReplyFavourite;
+use App\ThreadReplyFlag;
+use App\ThreadReplyLike;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 
 class UserDashboardController extends Controller
 {
@@ -28,6 +37,29 @@ class UserDashboardController extends Controller
 
         $user = User::findOrFail(Auth::user()->id);
 
+        
+        if((count($user->threads) >= 15) && (count($user->replies) >= 25)) {
+
+            if($user->level_id !== 3) {
+                $user->update(['level_id'=>3]);
+                session('success', 'Congratulations! \<br\> You have been promoted to Master level');
+            }
+
+        } elseif((count($user->threads) >= 5) && (count($user->replies) >= 10)) {
+
+            if($user->level_id !== 2) {
+                $user->update(['level_id'=>2]);
+                session('success', 'Congratulations! \<br\> You have been promoted to Regular level');
+            }
+
+        } else {
+
+            if($user->level_id !== 1) {
+                $user->update(['level_id'=>1]);
+            }
+
+        }
+        
         $threads = Thread::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
 
         $categories = Category::orderBy('id', 'desc')->paginate(10);
@@ -52,6 +84,28 @@ class UserDashboardController extends Controller
         }
 
         $user = User::where('username', $username)->first();
+
+
+        if((count($user->threads) >= 15) && (count($user->replies) >= 25)) {
+
+            if($user->level_id !== 3) {
+                $user->update(['level_id'=>3]);
+            }
+
+        } elseif((count($user->threads) >= 5) && (count($user->replies) >= 15)) {
+
+            if($user->level_id !== 2) {
+                $user->update(['level_id'=>2]);
+            }
+
+        } else {
+
+            if($user->level_id !== 1) {
+                $user->update(['level_id'=>1]);
+            }
+
+        }
+
 
         $threads = Thread::where('user_id', $user->id)->orderBy('id', 'desc')->paginate(15);
 
@@ -251,6 +305,248 @@ class UserDashboardController extends Controller
         ThreadReply::create($data);
 
         return redirect()->back()->with('success', 'Reply Posted Successfully!');
+
+    }
+
+    public function threadLikeUnlike(Request $request, $id) {
+
+        $threadLikes = ThreadLike::where('thread_id', $id)->get();
+
+        if(count($threadLikes) > 0) {
+
+            foreach($threadLikes as $threadLike) {
+
+                if($threadLike->user_id == $request->user_id) {
+
+                    $threadLike->delete();
+
+                } else {
+
+                    ThreadLike::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadLike::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+
+    public function threadDislikeUndislike(Request $request, $id) {
+
+
+        $threadDislikes = ThreadDislike::where('thread_id', $id)->get();
+
+        if(count($threadDislikes) > 0) {
+
+            foreach($threadDislikes as $threadDislike) {
+
+                if($threadDislike->user_id == $request->user_id) {
+
+                    $threadDislike->delete();
+
+                } else {
+
+                    ThreadDislike::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadDislike::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function threadFavouriteUnfavourite(Request $request, $id) {
+
+        $favourites = ThreadFavourite::where('thread_id', $id)->get();
+
+        if(count($favourites) > 0) {
+
+            foreach($favourites as $favourite) {
+
+                if($favourite->user_id == $request->user_id) {
+
+                    $favourite->delete();
+
+                } else {
+
+                    ThreadFavourite::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadFavourite::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function threadReplyFavouriteUnfavourite(Request $request, $id) {
+
+        $refavourites = ThreadReplyFavourite::where('thread_reply_id', $id)->get();
+
+        if(count($refavourites) > 0) {
+
+            foreach($refavourites as $refavourite) {
+
+                if($refavourite->user_id == $request->user_id) {
+
+                    $refavourite->delete();
+
+                } else {
+
+                    ThreadReplyFavourite::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadReplyFavourite::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function threadReplyDislikeUndislike(Request $request, $id) {
+
+        $redislikes = ThreadReplyDislike::where('thread_reply_id', $id)->get();
+
+        if(count($redislikes) > 0) {
+
+            foreach($redislikes as $redislike) {
+
+                if($redislike->user_id == $request->user_id) {
+
+                    $redislike->delete();
+
+                } else {
+
+                    ThreadReplyDislike::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadReplyDislike::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function threadReplyLikeUnlike(Request $request, $id) {
+
+        $relikes = ThreadReplyLike::where('thread_reply_id', $id)->get();
+
+        if(count($relikes) > 0) {
+
+            foreach($relikes as $relike) {
+
+                if($relike->user_id == $request->user_id) {
+
+                    $relike->delete();
+
+                } else {
+
+                    ThreadReplyLike::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadReplyLike::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function threadFlag(Request $request, $id) {
+
+        $flags = ThreadFlag::where('thread_id', $id)->get();
+
+        if(count($flags) > 0) {
+
+            foreach($flags as $flag) {
+
+                if($flag->user_id == $request->user_id) {
+
+                    $flag->delete();
+
+                } else {
+
+                    ThreadFlag::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadFlag::create(['thread_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
+
+    }
+
+    public function threadReplyFlag(Request $request, $id) {
+
+        $reflags = ThreadReplyFlag::where('thread_reply_id', $id)->get();
+
+        if(count($reflags) > 0) {
+
+            foreach($reflags as $reflag) {
+
+                if($reflag->user_id == $request->user_id) {
+
+                    $reflag->delete();
+
+                } else {
+
+                    ThreadReplyFlag::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+                }
+
+            }
+
+        } else {
+
+            ThreadReplyFlag::create(['thread_reply_id'=>$id, 'user_id'=>$request->user_id]);
+
+        }
+
+        return redirect()->back();
 
     }
 

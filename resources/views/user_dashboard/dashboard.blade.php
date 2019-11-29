@@ -76,10 +76,10 @@
                         <a class="nav-link active" data-toggle="tab" href="#tt-tab-01" role="tab"><span>Activity</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tt-tab-02" role="tab"><span>Threads</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#tt-tab-02" role="tab"><span>{{count($threads) > 0 ? count($threads) : 0}} Threads</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#tt-tab-03" role="tab"><span>Replies</span></a>
+                        <a class="nav-link" data-toggle="tab" href="#tt-tab-03" role="tab"><span>{{count($replies) > 0 ? count($replies) : 0}} Replies</span></a>
                     </li>
                     <li class="nav-item tt-hide-xs">
                         <a class="nav-link" data-toggle="tab" href="#tt-tab-04" role="tab"><span>{{count($followers) > 0 ? count($followers) : 0}} Followers</span></a>
@@ -278,7 +278,7 @@
                                         </div>
                                     </div>
                                     <div class="tt-col-category"><a href="#"><span class="tt-color06 tt-badge">{{$reply->thread->category ? Str::title($reply->thread->category->name) : 'UnCategorized'}}</span></a></div>
-                                    <div class="tt-col-value-large hide-mobile">{{$reply->created_at->diffForHummans()}}</div>
+                                    <div class="tt-col-value-large hide-mobile">{{$reply->created_at->diffForHumans()}}</div>
                                 </div>
                             @endforeach
                         @else
