@@ -12,6 +12,7 @@ use App\ThreadReply;
 use App\ThreadReplyDislike;
 use App\ThreadReplyFavourite;
 use App\ThreadReplyLike;
+use App\ThreadView;
 use Illuminate\Http\Request;
 
 class FrontEndController extends Controller
@@ -97,6 +98,41 @@ class FrontEndController extends Controller
         $flag = ThreadFlag::where('thread_id', $thread->id)->first();
 
         $relateds = Thread::where('category_id', $thread->category_id)->orderBy('id', 'desc')->paginate(5);
+
+//        THREAD VIEWS COUNTER STARTS HERE
+
+        $ip =  $_SERVER['REMOTE_ADDR'];
+        $date  = date('Y-m-d');
+
+        $view_check = ThreadView::where([['date', '=', $date], ['thread_id', '=', $thread->id]])->get();
+
+        if(count($view_check) === 0) {
+
+            ThreadView::create([
+                'thread_id'=>$thread->id,
+                'date'=>$date,
+                'ip_address'=>$ip,
+                'count'=>1
+            ]);
+
+        } /*else {
+
+            $view = ThreadView::where([['date', '=', $date], ['thread_id', '=', $thread->id]])->first();
+
+            if(!preg_match('/' . $ip . '/i', $view->ip_address)) {
+
+                $view->update([
+                    'ip_address'=>"$view->ip_address $ip",
+                    'count'=>$view->count + 1
+                ]);
+
+            }
+
+        }*/
+
+
+
+//        THREAD VIEWS COUNTER ENDS HERE
 
         return view('front_end.single_topic', compact('thread', 'replies', 'relateds', 'liked', 'disliked', 'favourited', 'flag'));
 

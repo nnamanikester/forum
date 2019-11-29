@@ -52,11 +52,15 @@
                     <div class="tt-item-description">
                         {!! $thread->description !!}
                     </div>
+
                     <div class="tt-item-info info-bottom">
+
+                        @if(Auth::check())
+
                         <a href="#" class="tt-icon-btn">
                             {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadLikeUnlike', $thread->id]]) }}
                                 {{ Form::hidden('user_id', Auth::user()->id) }}
-                                @if($liked && ($liked->user_id === Auth::user()->id))
+                                @if($liked && ($liked->user_id == Auth::user()->id))
                                     <button style="border: none; background: none; border-radius: 40%; background-color: #3ebafa;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i></button>
                                 @else
                                     <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-like"></use></svg></i></button>
@@ -69,7 +73,7 @@
 
                             {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadDislikeUndislike', $thread->id]]) }}
                                 {{ Form::hidden('user_id', Auth::user()->id) }}
-                                @if($disliked && ($disliked->user_id === Auth::user()->id))
+                                @if($disliked && ($disliked->user_id == Auth::user()->id))
                                     <button style="border: none; background: none; border-radius: 40%; background-color: #3ebafa;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i></button>
                                 @else
                                     <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-dislike"></use></svg></i></button>
@@ -82,7 +86,7 @@
 
                             {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadFavouriteUnfavourite', $thread->id]]) }}
                                 {{ Form::hidden('user_id', Auth::user()->id) }}
-                                @if($favourited && ($favourited->user_id === Auth::user()->id))
+                                @if($favourited && ($favourited->user_id == Auth::user()->id))
                                     <button style="border: none; background: none; border-radius: 100%; background-color: #ff0000;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i></button>
                                 @else
                                     <button style="border: none; background: none;" type="submit"><i class="tt-icon"><svg><use xlink:href="#icon-favorite"></use></svg></i></button>
@@ -91,12 +95,13 @@
                             {{ Form::close() }}
 
                         </a>
+                        @endif
                         <div class="col-separator"></div>
                         <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                             <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                         </a>
 
-                        @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+                        @if(Auth::check() && (Auth::user()->role_id == 2 || Auth::user()->role_id == 1))
                             {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadFlag', $thread->id]]) }}
                                 {{ Form::hidden('user_id', Auth::user()->id) }}
                                 @if($flag)
@@ -261,6 +266,7 @@
 
 
                             <div class="tt-item-info info-bottom">
+                                @if(Auth::check())
                                 <a href="#" class="tt-icon-btn">
                                     {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReplyLikeUnLike', $reply->id]]) }}
                                         {{ Form::hidden('user_id', Auth::user()->id) }}
@@ -299,12 +305,13 @@
                                     {{ Form::close() }}
 
                                 </a>
+                                @endif
                                 <div class="col-separator"></div>
                                 <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                                     <i class="tt-icon"><svg><use xlink:href="#icon-share"></use></svg></i>
                                 </a>
 
-                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 1)
+                                @if(Auth::check() && (Auth::user()->role_id == 2 || Auth::user()->role_id == 1))
                                     {{ Form::open(['method'=>'POST', 'action'=>['UserDashboardController@threadReplyFlag', $reply->id]]) }}
                                         {{ Form::hidden('user_id', Auth::user()->id) }}
                                         @if($reflag)
@@ -377,7 +384,8 @@
         </div>
 
 
-        @if(!(Auth::user()))
+        @if(!(Auth::check()))
+            {{--LOGIN AND SIGNUP ADVERT STARTS--}}
 
             <div class="tt-item tt-item-popup">
                 <div class="tt-col-avatar">
@@ -386,13 +394,15 @@
                     </svg>
                 </div>
                 <div class="tt-col-message">
-                    Looks like you are new here. Login or Register to reply threads.
+                    Looks like you are new here. Register for free to post a reply.
                 </div>
                 <div class="tt-col-btn">
                     <a href="{{route('login')}}" type="button" class="btn btn-primary">Log in</a>
                     <a href="{{route('register')}}" type="button" class="btn btn-secondary">Sign up</a>
                 </div>
             </div>
+
+            {{--LOGIN AND SIGNUP ADVERT ENDS--}}
 
         @else
 
